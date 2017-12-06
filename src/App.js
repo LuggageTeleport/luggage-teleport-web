@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import { Tabs, Tab } from 'react-bootstrap';
 import './App.css';
+import { Container, Row, Col } from 'react-grid-system';
 
 import Header from './components/header';
 import SectionOne from './components/section_one';
