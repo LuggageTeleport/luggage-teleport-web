@@ -8,7 +8,8 @@ class HeaderWidget extends React.Component {
         <div className="row">
           <DesktopVisible />
           <div className="col-lg-8 text-center">
-            <h1>What would you do if your day had an Additional Hour?</h1>
+            <h1>What would you do if your day</h1>
+            <h1>had an Additional Hour?</h1>
             <div
               style={{
                 height: 10,
