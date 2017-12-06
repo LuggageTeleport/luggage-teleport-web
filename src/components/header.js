@@ -11,7 +11,9 @@ class Header extends React.Component {
           background:
             "url(https://www.luggageteleport.com/wp-content/uploads/2017/09/homebg.png) no-repeat",
           backgroundSize: "cover",
-          backgroundPosition: "center center"
+          backgroundPosition: "center center",
+          width: '100%',
+          height: '900px'
         }}
       >
         <Navbar />
