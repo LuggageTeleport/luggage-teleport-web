@@ -1914,7 +1914,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.4, classnames@^2.2.5:
+classnames@^2.2.0, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -5906,7 +5906,7 @@ prop-types-extra@^1.0.1:
   dependencies:
     warning "^3.0.0"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
+prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -6129,12 +6129,6 @@ react-icons@^2.2.7:
   dependencies:
     react-icon-base "2.1.0"
 
-react-input-autosize@^2.1.0:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.1.2.tgz#a3dc11a5517c434db25229925541309de3f7a8f5"
-  dependencies:
-    prop-types "^15.5.8"
-
 react-inspector@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-inspector/-/react-inspector-2.2.1.tgz#c24f9a0131960b8e63c8392254d34df0717aabdf"
@@ -6226,14 +6220,6 @@ react-scripts@1.0.17:
   optionalDependencies:
     fsevents "1.1.2"
 
-react-select@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.1.0.tgz#626a2de839fdea2ade74dd1b143a9bde34be6c82"
-  dependencies:
-    classnames "^2.2.4"
-    prop-types "^15.5.8"
-    react-input-autosize "^2.1.0"
-
 react-split-pane@^0.1.71:
   version "0.1.71"
   resolved "https://registry.yarnpkg.com/react-split-pane/-/react-split-pane-0.1.71.tgz#19b1b30638655e655f9f5fe57b1ae7cc6c151829"
@@ -6249,6 +6235,13 @@ react-style-proptype@^3.0.0:
   resolved "https://registry.yarnpkg.com/react-style-proptype/-/react-style-proptype-3.1.0.tgz#c8912fc13460f5b0c1ec1114c729d535b52b8073"
   dependencies:
     prop-types "^15.5.4"
+
+react-tabs@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-2.1.1.tgz#fd806fe78a990b59f1daf02609aded546fe7016c"
+  dependencies:
+    classnames "^2.2.0"
+    prop-types "^15.5.0"
 
 react-transition-group@^1.1.2:
   version "1.2.1"

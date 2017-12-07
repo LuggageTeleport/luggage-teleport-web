@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import { Tabs, Tab } from 'react-bootstrap';
 import './App.css';
 import { Container, Row, Col } from 'react-grid-system';
+import MdLocalAirport from 'react-icons/lib/md/local-airport';
+import MdHotel from 'react-icons/lib/md/hotel';
+import GoArrowSmallRight from 'react-icons/lib/go/arrow-small-right';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 import Header from './components/header';
 import SectionOne from './components/section_one';
@@ -28,7 +32,7 @@ class App extends Component {
         <div>
           <Container fluid style={{ lineHeight: '35px' }}>
             <Row>
-              <Col  md={9} push={{ md: 3 }}>
+              <Col md={9} push={{ md: 3 }}>
                 <div>
                   <Header />
                   <SectionOne />
@@ -42,20 +46,29 @@ class App extends Component {
               </Col>
               <Col md={3} pull={{ md: 9 }}>
                 <div style={{ padding: '10px' }}>
-                  <Tabs defaultActiveKey={1} animation={false} id="noanim-tab-example">
-                    <Tab eventKey={1} title="Airport-Hotel">
-                      <AirportToHotel />
-                    </Tab>
-                    <Tab eventKey={2} title="Hotel-Airport">
-                      <HotelToAirport />
-                    </Tab>
-                    <Tab eventKey={3} title="Hotel-Hotel">
-                      <HotelToHotel />
-                    </Tab>
-                    <Tab eventKey={4} title="Airport-Airport">
-                      <AirportToAirport />
-                    </Tab>
-                  </Tabs>
+                  <div style={{ marginTop: '40px' }}>
+                    <Tabs>
+                      <TabList>
+                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdHotel style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdHotel style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                      </TabList>
+
+                      <TabPanel>
+                        <AirportToHotel />
+                      </TabPanel>
+                      <TabPanel>
+                        <HotelToAirport />
+                      </TabPanel>
+                      <TabPanel>
+                        <HotelToHotel />
+                      </TabPanel>
+                      <TabPanel>
+                        <AirportToAirport />
+                      </TabPanel>
+                    </Tabs>
+                  </div>
                 </div>
               </Col>
             </Row>
