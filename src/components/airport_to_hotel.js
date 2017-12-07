@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
 import FaCalendar from 'react-icons/lib/fa/calendar';
@@ -15,12 +14,11 @@ class AirportToHotel extends Component {
         this.state = {
             selectedOption: '',
             dateType: 'text',
-            timeType: 'text'
+            timeType: 'text',
+            airport: '',
+            airline: '',
+            hotel: ''
         }
-    }
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(`Selected: ${selectedOption.label}`);
     }
 
     render() {
@@ -29,33 +27,31 @@ class AirportToHotel extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
-                        {/**
+                            {/**
                          * Airport Section
                          */}
-                            <Select
-                                placeholder="Choose Airport for pickup"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'sfo', label: 'San Fransisco intl Airport' },
-                                    { value: 'soetta', label: 'Soekarno-Hatta intl Airport' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.airport}
+                                onChange={event => this.setState({ airport: event.target.value })}>
+                                <option value="" selected disabled>Choose Airport for pickup</option>
+                                <option value="sfo">San Fransisco intl Airport</option>
+                                <option value="soetta">Soekarno-Hatta intl Airport</option>
+                            </select>
                             <hr />
-                            <Select
-                                placeholder="Airline"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'aa', label: 'American Airlines' },
-                                    { value: 'garuda', label: 'Garuda Airlines' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.airline}
+                                onChange={event => this.setState({ airline: event.target.value })}>
+                                <option value="" selected disabled>Airline</option>
+                                <option value="aa">American Airlines</option>
+                                <option value="garuda">Garuda Airlines</option>
+                            </select>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type="text"
                                     placeholder="Flight Number"
@@ -65,7 +61,7 @@ class AirportToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type={this.state.dateType}
                                     className="form-control"
@@ -77,7 +73,7 @@ class AirportToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type={this.state.timeType}
                                     placeholder="Estimated Time of Arrival"
@@ -91,19 +87,18 @@ class AirportToHotel extends Component {
                             {/**
                              * Hotel Section
                              */}
-                            <Select
-                                placeholder="Hotel for Drop off"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'shantika', label: 'Shantika Hotel Jakarta' },
-                                    { value: 'ritzcarlton', label: 'Ritz-Carlton Hotel' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.hotel}
+                                onChange={event => this.setState({ hotel: event.target.value })}>
+                                <option value="" selected disabled>Hotel for Drop off</option>
+                                <option value="shantika">Shantika Hotel Jakarta</option>
+                                <option value="ritzcarlton">Ritz-Carlton Hotel</option>
+                            </select>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
                                     placeholder="Hotel Booking Reference"
@@ -113,7 +108,7 @@ class AirportToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
                                     placeholder="Name under Hotel Reservation"
@@ -129,7 +124,7 @@ class AirportToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type={this.state.dateType}
                                     className="form-control"

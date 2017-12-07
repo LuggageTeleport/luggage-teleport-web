@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
 import FaCalendar from 'react-icons/lib/fa/calendar';
@@ -13,7 +12,11 @@ class AirportToAirport extends Component {
         this.state = {
             selectedOption: '',
             dateType: 'text',
-            timeType: 'text'
+            timeType: 'text',
+            airportPickup: '',
+            airportDropoff: '',
+            airlinePickup: '',
+            airlineDropoff: ''
         }
     }
     handleChange = (selectedOption) => {
@@ -27,33 +30,31 @@ class AirportToAirport extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
-                        {/**
+                            {/**
                          * Airport A Section
                          */}
-                            <Select
-                                placeholder="Choose Airport for pick up"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'sfo', label: 'San Fransisco intl Airport' },
-                                    { value: 'soetta', label: 'Soekarno-Hatta intl Airport' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.airportPickup}
+                                onChange={event => this.setState({ airportPickup: event.target.value })}>
+                                <option value="" selected disabled>Choose Airport for pickup</option>
+                                <option value="sfo">San Fransisco intl Airport</option>
+                                <option value="soetta">Soekarno-Hatta intl Airport</option>
+                            </select>
                             <hr />
-                            <Select
-                                placeholder="Airline"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'aa', label: 'American Airlines' },
-                                    { value: 'garuda', label: 'Garuda Airlines' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.airlinePickup}
+                                onChange={event => this.setState({ airlinePickup: event.target.value })}>
+                                <option value="" selected disabled>Airline</option>
+                                <option value="aa">American Airlines</option>
+                                <option value="garuda">Garuda Airlines</option>
+                            </select>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type="text"
                                     placeholder="Flight Number"
@@ -63,7 +64,7 @@ class AirportToAirport extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type={this.state.dateType}
                                     className="form-control"
@@ -75,7 +76,7 @@ class AirportToAirport extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type={this.state.timeType}
                                     placeholder="Estimated Time of Arrival"
@@ -89,30 +90,28 @@ class AirportToAirport extends Component {
                             {/**
                              * Airport B Section
                              */}
-                            <Select
-                                placeholder="Choose Airport for Drop off"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'sfo', label: 'San Fransisco intl Airport' },
-                                    { value: 'soetta', label: 'Soekarno-Hatta intl Airport' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.airportDropoff}
+                                onChange={event => this.setState({ airportDropoff: event.target.value })}>
+                                <option value="" selected disabled>Choose Airport for Drop off</option>
+                                <option value="sfo">San Fransisco intl Airport</option>
+                                <option value="soetta">Soekarno-Hatta intl Airport</option>
+                            </select>
                             <hr />
-                            <Select
-                                placeholder="Airline"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'aa', label: 'American Airlines' },
-                                    { value: 'garuda', label: 'Garuda Airlines' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.airlineDropoff}
+                                onChange={event => this.setState({ airlineDropoff: event.target.value })}>
+                                <option value="" selected disabled>Airline</option>
+                                <option value="aa">American Airlines</option>
+                                <option value="garuda">Garuda Airlines</option>
+                            </select>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type="text"
                                     placeholder="Flight Number"
@@ -122,7 +121,7 @@ class AirportToAirport extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type={this.state.timeType}
                                     placeholder="Departure Time"

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import MdHotel from 'react-icons/lib/md/hotel';
 import FaUser from 'react-icons/lib/fa/user';
@@ -13,7 +12,9 @@ class HotelToHotel extends Component {
         this.state = {
             selectedOption: '',
             dateType: 'text',
-            timeType: 'text'
+            timeType: 'text',
+            hotelPickup: '',
+            hotelDropoff: ''
         }
     }
     handleChange = (selectedOption) => {
@@ -27,22 +28,21 @@ class HotelToHotel extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
-                        {/**
+                            {/**
                          * Hotel A Section
                          */}
-                            <Select
-                                placeholder="Hotel for Pick up"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'shantika', label: 'Shantika Hotel Jakarta' },
-                                    { value: 'ritzcarlton', label: 'Ritz-Carlton Hotel' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.hotelPickup}
+                                onChange={event => this.setState({ hotelPickup: event.target.value })}>
+                                <option value="" selected disabled>Hotel for Pick up</option>
+                                <option value="shantika">Shantika Hotel Jakarta</option>
+                                <option value="ritzcarlton">Ritz-Carlton Hotel</option>
+                            </select>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type='text'
                                     placeholder="Hotel Booking Reference"
@@ -52,7 +52,7 @@ class HotelToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type='text'
                                     placeholder="Name under Hotel Reservation"
@@ -62,7 +62,7 @@ class HotelToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{color:'#00bfff'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type={this.state.dateType}
                                     className="form-control"
@@ -76,19 +76,18 @@ class HotelToHotel extends Component {
                             {/**
                              * Hotel B Section
                              */}
-                            <Select
-                                placeholder="Hotel for Drop off"
-                                value={this.state.selectedOption.value}
-                                onChange={this.handleChange}
-                                clearable={false}
-                                options={[
-                                    { value: 'shantika', label: 'Shantika Hotel Jakarta' },
-                                    { value: 'ritzcarlton', label: 'Ritz-Carlton Hotel' },
-                                ]}
-                            />
+                            <select
+                                className="form-control"
+                                style={{ height: '35px', width: '260px' }}
+                                value={this.state.hotelDropoff}
+                                onChange={event => this.setState({ hotelDropoff: event.target.value })}>
+                                <option value="" selected disabled>Hotel for Drop off</option>
+                                <option value="shantika">Shantika Hotel Jakarta</option>
+                                <option value="ritzcarlton">Ritz-Carlton Hotel</option>
+                            </select>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
                                     placeholder="Hotel Booking Reference"
@@ -98,7 +97,7 @@ class HotelToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
                                     placeholder="Name under Hotel Reservation"
@@ -114,7 +113,7 @@ class HotelToHotel extends Component {
                             </div>
                             <hr />
                             <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{color: '#e6e600'}}/></span>
+                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type={this.state.dateType}
                                     className="form-control"
