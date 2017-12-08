@@ -13,3 +13,17 @@
 .form-group{
   width: 25%;
 }
+
+.bookingForm{
+  padding: 5px;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 90%;
+}
+
+#style1::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
