@@ -7,6 +7,7 @@ import MdHotel from 'react-icons/lib/md/hotel';
 import GoArrowSmallRight from 'react-icons/lib/go/arrow-small-right';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import ReactTooltip from 'react-tooltip'
 
 import Header from './components/header';
 import SectionOne from './components/section_one';
@@ -29,6 +30,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ReactTooltip place="bottom" type="info" effect="solid" />
         <div>
           <Container fluid style={{ lineHeight: '35px' }}>
             <Row>
@@ -45,14 +47,30 @@ class App extends Component {
                 </div>
               </Col>
               <Col md={3} pull={{ md: 9 }}>
-                <div className="bookingForm" id="style1">
+                <div className="bookingForm" style={{ marginLeft: 9 }}>
                   <div style={{ marginTop: '30px' }}>
                     <Tabs>
                       <TabList>
-                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
-                        <Tab><MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
-                        <Tab><MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
-                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab data-tip="Airport - Hotel">
+                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} />
+                          <GoArrowSmallRight />
+                          <MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} />
+                        </Tab>
+                        <Tab data-tip="Hotel - Airport">
+                          <MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} />
+                          <GoArrowSmallRight />
+                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} />
+                        </Tab>
+                        <Tab data-tip="Hotel - Hotel">
+                          <MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} />
+                          <GoArrowSmallRight />
+                          <MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} />
+                        </Tab>
+                        <Tab data-tip="Airport - Airport">
+                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} />
+                          <GoArrowSmallRight />
+                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} />
+                        </Tab>
                       </TabList>
 
                       <TabPanel>

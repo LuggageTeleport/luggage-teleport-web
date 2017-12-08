@@ -1,7 +1,7 @@
 .polaroid {
   margin-top: 20px;
   width: 350px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
   align-items: center;
 }
 
@@ -17,13 +17,15 @@
 .bookingForm{
   padding: 5px;
   position: fixed;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: 90%;
+  height: 100%;
 }
 
-#style1::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #F5F5F5;
+hr{
+  margin: 6px;
+}
+
+.btn{
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+  margin-bottom: -30px
 }
