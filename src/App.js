@@ -45,7 +45,7 @@ class App extends Component {
                 </div>
               </Col>
               <Col md={3} pull={{ md: 9 }}>
-                <div className="bookingForm" id="style1">
+                <div className="bookingForm">
                   <div style={{ marginTop: '30px' }}>
                     <Tabs>
                       <TabList>
