@@ -45,14 +45,14 @@ class App extends Component {
                 </div>
               </Col>
               <Col md={3} pull={{ md: 9 }}>
-                <div style={{ padding: '10px' }}>
-                  <div style={{ marginTop: '40px' }}>
+                <div className="bookingForm" id="style1">
+                  <div style={{ marginTop: '30px' }}>
                     <Tabs>
                       <TabList>
-                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
-                        <Tab><MdHotel style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
-                        <Tab><MdHotel style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
-                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color:'#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
+                        <Tab><MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} /><GoArrowSmallRight /><MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} /></Tab>
                       </TabList>
 
                       <TabPanel>
@@ -67,6 +67,7 @@ class App extends Component {
                       <TabPanel>
                         <AirportToAirport />
                       </TabPanel>
+
                     </Tabs>
                   </div>
                 </div>
