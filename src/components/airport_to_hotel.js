@@ -12,13 +12,34 @@ class AirportToHotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: '',
             dateType: 'text',
             timeType: 'text',
-            airport: '',
-            airline: '',
-            hotel: ''
+            Airport: '',
+            Airline: '',
+            Hotel: '',
+            FlightNumber: '',
+            ArrivalTime: '',
+            PickupDate: '',
+            DropoffDate: '',
+            HotelBookingRef: '',
+            NameUnderHotelRsv: '',
+            OvernightStorage: false
         }
+    }
+
+    SubmitHotelToAirportData() {
+        const {
+            airline,
+            airport,
+            hotel,
+            FlightNumber,
+            ArrivalTime,
+            PickupDate,
+            DropoffDate,
+            HotelBookingRef,
+            NameUnderHotelRsv } = this.state;
+
+            console.log(this.state)
     }
 
     render() {
@@ -33,8 +54,7 @@ class AirportToHotel extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.airport}
-                                onChange={event => this.setState({ airport: event.target.value })}>
+                                onChange={event => this.setState({ Airport: event.target.value })}>
                                 <option value="" selected disabled>Choose Airport for pickup</option>
                                 <option value="sfo">San Fransisco intl Airport</option>
                                 <option value="soetta">Soekarno-Hatta intl Airport</option>
@@ -43,8 +63,7 @@ class AirportToHotel extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.airline}
-                                onChange={event => this.setState({ airline: event.target.value })}>
+                                onChange={event => this.setState({ Airline: event.target.value })}>
                                 <option value="" selected disabled>Airline</option>
                                 <option value="aa">American Airlines</option>
                                 <option value="garuda">Garuda Airlines</option>
@@ -54,6 +73,7 @@ class AirportToHotel extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type="text"
+                                    onChange={event => this.setState({ FlightNumber: event.target.value })}
                                     placeholder="Flight Number"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -66,6 +86,7 @@ class AirportToHotel extends Component {
                                     type={this.state.dateType}
                                     className="form-control"
                                     placeholder="Pick up Date"
+                                    onChange={event => this.setState({ PickupDate: event.target.value })}
                                     onFocus={() => this.setState({ dateType: 'date' })}
                                     onBlur={() => this.setState({ dateType: 'text' })}
                                     style={{ width: '220px' }}
@@ -78,6 +99,7 @@ class AirportToHotel extends Component {
                                     type={this.state.timeType}
                                     placeholder="Estimated Time of Arrival"
                                     className="form-control"
+                                    onChange={event => this.setState({ ArrivalTime: event.target.value })}
                                     onFocus={() => this.setState({ timeType: 'time' })}
                                     onBlur={() => this.setState({ timeType: 'text' })}
                                     style={{ width: '220px' }}
@@ -90,8 +112,7 @@ class AirportToHotel extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.hotel}
-                                onChange={event => this.setState({ hotel: event.target.value })}>
+                                onChange={event => this.setState({ Hotel: event.target.value })}>
                                 <option value="" selected disabled>Hotel for Drop off</option>
                                 <option value="shantika">Shantika Hotel Jakarta</option>
                                 <option value="ritzcarlton">Ritz-Carlton Hotel</option>
@@ -101,6 +122,7 @@ class AirportToHotel extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
+                                    onChange={event => this.setState({ HotelBookingRef: event.target.value })}
                                     placeholder="Hotel Booking Reference"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -113,14 +135,15 @@ class AirportToHotel extends Component {
                                     type='text'
                                     placeholder="Name under Hotel Reservation"
                                     className="form-control"
+                                    onChange={event => this.setState({ NameUnderHotelRsv: event.target.value })}
                                     style={{ width: '220px' }}
                                 />
                             </div>
                             <hr />
                             <div>
                                 <label style={{ float: 'left', marginRight: 5 }}>Overnight Storage</label>
-                                <input type="radio" name="optradio" value="1" />Yes
-                                <input type="radio" name="optradio" value="0" style={{ marginLeft: 5 }} />No
+                                <input type="radio" name="optradio" onChange={e => this.setState({OvernightStorage: true})}/>Yes
+                                <input type="radio" name="optradio" style={{ marginLeft: 5 }} onChange={e => this.setState({OvernightStorage: false})}/>No
                             </div>
                             <hr />
                             <div class="input-group">
@@ -129,6 +152,7 @@ class AirportToHotel extends Component {
                                     type={this.state.dateType}
                                     className="form-control"
                                     placeholder="Drop off Date"
+                                    onChange={event => this.setState({ DropoffDate: event.target.value })}
                                     onFocus={() => this.setState({ dateType: 'date' })}
                                     onBlur={() => this.setState({ dateType: 'text' })}
                                     style={{ width: '220px' }}
@@ -138,6 +162,7 @@ class AirportToHotel extends Component {
 
                             <button
                                 className="btn btn-lg"
+                                onClick={() => this.SubmitHotelToAirportData()}
                                 type="button"
                                 style={{ backgroundColor: 'yellow', width: '260px' }}>
                                 Next

@@ -10,16 +10,33 @@ class HotelToHotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: '',
             dateType: 'text',
             timeType: 'text',
-            hotelPickup: '',
-            hotelDropoff: ''
+            HotelPickup: '',
+            HotelPickupBookingRef: '',
+            RsvpNameHotelPickup: '',
+            HotelPickupDate: '',
+            HotelDropoff: '',
+            HotelDropoffBookingRef: '',
+            RsvpNameHotelDropoff: '',
+            OvernightStorage: false,
+            HotelDropoffDate: ''
         }
     }
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(`Selected: ${selectedOption.label}`);
+
+    SubmitHotelToHotelData() {
+        const {
+            HotelPickup,
+            HotelPickupBookingRef,
+            RsvpNameHotelPickup,
+            HotelPickupDate,
+            HotelDropoff,
+            HotelDropoffBookingRef,
+            RsvpNameHotelDropoff,
+            OvernightStorage,
+            HotelDropoffDate } = this.state;
+
+        console.log(this.state);
     }
 
     render() {
@@ -34,8 +51,7 @@ class HotelToHotel extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.hotelPickup}
-                                onChange={event => this.setState({ hotelPickup: event.target.value })}>
+                                onChange={event => this.setState({ HotelPickup: event.target.value })}>
                                 <option value="" selected disabled>Hotel for Pick up</option>
                                 <option value="shantika">Shantika Hotel Jakarta</option>
                                 <option value="ritzcarlton">Ritz-Carlton Hotel</option>
@@ -45,6 +61,7 @@ class HotelToHotel extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type='text'
+                                    onChange={e => this.setState({ HotelPickupBookingRef: e.target.value })}
                                     placeholder="Hotel Booking Reference"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -55,6 +72,7 @@ class HotelToHotel extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type='text'
+                                    onChange={e => this.setState({ RsvpNameHotelPickup: e.target.value })}
                                     placeholder="Name under Hotel Reservation"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -67,6 +85,7 @@ class HotelToHotel extends Component {
                                     type={this.state.dateType}
                                     className="form-control"
                                     placeholder="Pick up Date"
+                                    onChange={e => this.setState({ HotelPickupDate: e.target.value })}
                                     onFocus={() => this.setState({ dateType: 'date' })}
                                     onBlur={() => this.setState({ dateType: 'text' })}
                                     style={{ width: '220px' }}
@@ -79,8 +98,7 @@ class HotelToHotel extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.hotelDropoff}
-                                onChange={event => this.setState({ hotelDropoff: event.target.value })}>
+                                onChange={event => this.setState({ HotelDropoff: event.target.value })}>
                                 <option value="" selected disabled>Hotel for Drop off</option>
                                 <option value="shantika">Shantika Hotel Jakarta</option>
                                 <option value="ritzcarlton">Ritz-Carlton Hotel</option>
@@ -90,6 +108,7 @@ class HotelToHotel extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
+                                    onChange={e => this.setState({ HotelDropoffBookingRef: e.target.value })}
                                     placeholder="Hotel Booking Reference"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -100,6 +119,7 @@ class HotelToHotel extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type='text'
+                                    onChange={e => this.setState({ RsvpNameHotelDropoff: e.target.value })}
                                     placeholder="Name under Hotel Reservation"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -108,8 +128,8 @@ class HotelToHotel extends Component {
                             <hr />
                             <div>
                                 <label style={{ float: 'left', marginRight: 5 }}>Overnight Storage</label>
-                                <input type="radio" name="optradio" value="1" />Yes
-                                <input type="radio" name="optradio" value="0" style={{ marginLeft: 5 }} />No
+                                <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
+                                <input type="radio" name="optradio" style={{ marginLeft: 5 }} onChange={e => this.setState({ OvernightStorage: false })} />No
                             </div>
                             <hr />
                             <div class="input-group">
@@ -118,6 +138,7 @@ class HotelToHotel extends Component {
                                     type={this.state.dateType}
                                     className="form-control"
                                     placeholder="Drop off Date"
+                                    onChange={e => this.setState({ HotelDropoffDate: e.target.value })}
                                     onFocus={() => this.setState({ dateType: 'date' })}
                                     onBlur={() => this.setState({ dateType: 'text' })}
                                     style={{ width: '220px' }}
@@ -128,6 +149,7 @@ class HotelToHotel extends Component {
                             <button
                                 className="btn btn-lg"
                                 type="button"
+                                onClick={() => this.SubmitHotelToHotelData()}
                                 style={{ backgroundColor: 'yellow', width: '260px' }}>
                                 Next
                             </button>
