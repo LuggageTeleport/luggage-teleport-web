@@ -10,18 +10,33 @@ class AirportToAirport extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: '',
             dateType: 'text',
             timeType: 'text',
-            airportPickup: '',
-            airportDropoff: '',
-            airlinePickup: '',
-            airlineDropoff: ''
+            AirportPickup: '',
+            AirlinePickup: '',
+            PickupFlightNumber: '',
+            PickupDate: '',
+            ArrivalTime: '',
+            AirportDropoff: '',
+            AirlineDropoff: '',
+            DropoffFlightNumber: '',
+            DepartureTime: ''
         }
     }
-    handleChange = (selectedOption) => {
-        this.setState({ selectedOption });
-        console.log(`Selected: ${selectedOption.label}`);
+
+    SubmitAirportToAirportData() {
+        const {
+            AirportPickup,
+            AirlinePickup,
+            PickupFlightNumber,
+            PickupDate,
+            ArrivalTime,
+            AirportDropoff,
+            AirlineDropoff,
+            DropoffFlightNumber,
+            DepartureTime } = this.state;
+
+        console.log(this.state);
     }
 
     render() {
@@ -36,8 +51,7 @@ class AirportToAirport extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.airportPickup}
-                                onChange={event => this.setState({ airportPickup: event.target.value })}>
+                                onChange={event => this.setState({ AirportPickup: event.target.value })}>
                                 <option value="" selected disabled>Choose Airport for pickup</option>
                                 <option value="sfo">San Fransisco intl Airport</option>
                                 <option value="soetta">Soekarno-Hatta intl Airport</option>
@@ -46,8 +60,7 @@ class AirportToAirport extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.airlinePickup}
-                                onChange={event => this.setState({ airlinePickup: event.target.value })}>
+                                onChange={event => this.setState({ AirlinePickup: event.target.value })}>
                                 <option value="" selected disabled>Airline</option>
                                 <option value="aa">American Airlines</option>
                                 <option value="garuda">Garuda Airlines</option>
@@ -57,6 +70,7 @@ class AirportToAirport extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></span>
                                 <input
                                     type="text"
+                                    onChange={e => this.setState({ PickupFlightNumber: e.target.value })}
                                     placeholder="Flight Number"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -69,6 +83,7 @@ class AirportToAirport extends Component {
                                     type={this.state.dateType}
                                     className="form-control"
                                     placeholder="Pick up Date"
+                                    onChange={e => this.setState({ PickupDate: e.target.value })}
                                     onFocus={() => this.setState({ dateType: 'date' })}
                                     onBlur={() => this.setState({ dateType: 'text' })}
                                     style={{ width: '220px' }}
@@ -81,6 +96,7 @@ class AirportToAirport extends Component {
                                     type={this.state.timeType}
                                     placeholder="Estimated Time of Arrival"
                                     className="form-control"
+                                    onChange={e => this.setState({ ArrivalTime: e.target.value })}
                                     onFocus={() => this.setState({ timeType: 'time' })}
                                     onBlur={() => this.setState({ timeType: 'text' })}
                                     style={{ width: '220px' }}
@@ -93,8 +109,7 @@ class AirportToAirport extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.airportDropoff}
-                                onChange={event => this.setState({ airportDropoff: event.target.value })}>
+                                onChange={event => this.setState({ AirportDropoff: event.target.value })}>
                                 <option value="" selected disabled>Choose Airport for Drop off</option>
                                 <option value="sfo">San Fransisco intl Airport</option>
                                 <option value="soetta">Soekarno-Hatta intl Airport</option>
@@ -103,8 +118,7 @@ class AirportToAirport extends Component {
                             <select
                                 className="form-control"
                                 style={{ height: '35px', width: '260px' }}
-                                value={this.state.airlineDropoff}
-                                onChange={event => this.setState({ airlineDropoff: event.target.value })}>
+                                onChange={event => this.setState({ AirlineDropoff: event.target.value })}>
                                 <option value="" selected disabled>Airline</option>
                                 <option value="aa">American Airlines</option>
                                 <option value="garuda">Garuda Airlines</option>
@@ -114,6 +128,7 @@ class AirportToAirport extends Component {
                                 <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#e6e600' }} /></span>
                                 <input
                                     type="text"
+                                    onChange={e => this.setState({ DropoffFlightNumber: e.target.value })}
                                     placeholder="Flight Number"
                                     className="form-control"
                                     style={{ width: '220px' }}
@@ -126,6 +141,7 @@ class AirportToAirport extends Component {
                                     type={this.state.timeType}
                                     placeholder="Departure Time"
                                     className="form-control"
+                                    onChange={e => this.setState({ DepartureTime: e.target.value })}
                                     onFocus={() => this.setState({ timeType: 'time' })}
                                     onBlur={() => this.setState({ timeType: 'text' })}
                                     style={{ width: '220px' }}
@@ -135,6 +151,7 @@ class AirportToAirport extends Component {
                             <button
                                 className="btn btn-lg"
                                 type="button"
+                                onClick={() => this.SubmitAirportToAirportData()}
                                 style={{ backgroundColor: 'yellow', width: '260px' }}>
                                 Next
                             </button>
