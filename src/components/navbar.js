@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 class Navbar extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class Navbar extends React.Component {
             <span className="fa fa-bars" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ml-auto">
+            <ul className="navbar-nav ml-auto" style={{ width: 800 }}>
               <li
                 id="menu-item-5"
                 className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-4 current_page_item menu-item-5"
@@ -60,6 +61,19 @@ class Navbar extends React.Component {
                   Contact Us
                 </a>
               </li>
+
+
+              <li
+                id="menu-item-20"
+                className="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"
+              >
+                <Link to="/">
+                  <a>
+                    Logout
+                </a>
+                </Link>
+              </li>
+
             </ul>
           </div>
         </div>
