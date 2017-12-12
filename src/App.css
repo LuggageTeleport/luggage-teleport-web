@@ -29,3 +29,11 @@ hr{
   margin-top: 5px;
   margin-bottom: -30px
 }
+
+.bg-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://www.luggageteleport.com/wp-content/uploads/2017/09/homebg.png);
+  background-size: cover;
+}

@@ -25,6 +25,50 @@ class AirportToHotel extends Component {
             NameUnderHotelRsv: '',
             OvernightStorage: false
         }
+
+    }
+
+    GetAirportData() {
+        const AirportData = [
+            {
+                id: 1,
+                name: "San Fransisco Intl Airport"
+            },
+            {
+                id: 2,
+                name: "Soekarno-Hatta Intl Airport"
+            }
+        ]
+        return AirportData;
+    }
+
+    GetAirlineData() {
+        const AirlineData = [
+            {
+                id: 1,
+                name: "Garuda"
+            },
+            {
+                id: 2,
+                name: "American Airlines"
+            }
+        ]
+        return AirlineData;
+    }
+
+    GetHotelData() {
+        const HotelData = [
+            {
+                id: 1,
+                name: "Shantika Hotel Jakarta"
+            },
+            {
+                id: 2,
+                name: "Ritz-Carlton Hotel"
+            }
+        ]
+
+        return HotelData;
     }
 
     SubmitHotelToAirportData() {
@@ -39,10 +83,11 @@ class AirportToHotel extends Component {
             HotelBookingRef,
             NameUnderHotelRsv } = this.state;
 
-            console.log(this.state)
+        console.log(this.state)
     }
 
     render() {
+
         return (
             <div class="polaroid">
                 <div class="container">
@@ -56,8 +101,11 @@ class AirportToHotel extends Component {
                                 style={{ height: '35px', width: '260px' }}
                                 onChange={event => this.setState({ Airport: event.target.value })}>
                                 <option value="" selected disabled>Choose Airport for pickup</option>
-                                <option value="sfo">San Fransisco intl Airport</option>
-                                <option value="soetta">Soekarno-Hatta intl Airport</option>
+                                {
+                                    this.GetAirportData().map((airport) => {
+                                        return <option key={airport.id} value={airport.id}>{airport.name}</option>
+                                    })
+                                }
                             </select>
                             <hr />
                             <select
@@ -65,8 +113,11 @@ class AirportToHotel extends Component {
                                 style={{ height: '35px', width: '260px' }}
                                 onChange={event => this.setState({ Airline: event.target.value })}>
                                 <option value="" selected disabled>Airline</option>
-                                <option value="aa">American Airlines</option>
-                                <option value="garuda">Garuda Airlines</option>
+                                {
+                                    this.GetAirlineData().map((airline) => {
+                                        return <option key={airline.id} value={airline.id}>{airline.name}</option>
+                                    })
+                                }
                             </select>
                             <hr />
                             <div class="input-group">
@@ -114,8 +165,11 @@ class AirportToHotel extends Component {
                                 style={{ height: '35px', width: '260px' }}
                                 onChange={event => this.setState({ Hotel: event.target.value })}>
                                 <option value="" selected disabled>Hotel for Drop off</option>
-                                <option value="shantika">Shantika Hotel Jakarta</option>
-                                <option value="ritzcarlton">Ritz-Carlton Hotel</option>
+                                {
+                                    this.GetHotelData().map((hotel) => {
+                                        return <option key={hotel.id} value={hotel.id}>{hotel.name}</option>
+                                    })
+                                }
                             </select>
                             <hr />
                             <div class="input-group">
@@ -142,8 +196,8 @@ class AirportToHotel extends Component {
                             <hr />
                             <div>
                                 <label style={{ float: 'left', marginRight: 5 }}>Overnight Storage</label>
-                                <input type="radio" name="optradio" onChange={e => this.setState({OvernightStorage: true})}/>Yes
-                                <input type="radio" name="optradio" style={{ marginLeft: 5 }} onChange={e => this.setState({OvernightStorage: false})}/>No
+                                <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
+                                <input type="radio" name="optradio" style={{ marginLeft: 5 }} onChange={e => this.setState({ OvernightStorage: false })} />No
                             </div>
                             <hr />
                             <div class="input-group">
