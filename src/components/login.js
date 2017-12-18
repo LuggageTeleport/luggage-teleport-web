@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { LogUser } from '../actions';
 import '../App.css';
 
 class Login extends Component {
@@ -13,7 +15,21 @@ class Login extends Component {
         }
     }
 
+    validateForm() {
+        return (
+            this.state.email.length > 0 &&
+            this.state.password.length > 0
+        );
+    }
+
+    Login() {
+        const { email } = this.state;
+        this.props.dispatch(LogUser(email, true));
+        this.props.history.push('/');
+    }
+
     render() {
+        // console.log('this.props', this.props)
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
@@ -26,25 +42,29 @@ class Login extends Component {
                             <input
                                 className="form-control"
                                 type="text"
-                                placeholder="Email or Phone Number" />
+                                onChange={e => this.setState({ email: e.target.value })}
+                                placeholder="Email or Phone Number" required />
                         </div>
 
                         <div className="form-group">
                             <input
                                 className="form-control"
                                 type="password"
+                                onChange={e => this.setState({ password: e.target.value })}
                                 placeholder="password"
-                                style={{ marginTop: '10px' }} />
+                                style={{ marginTop: '10px' }} required />
                         </div>
-                        <Link to={'/home'}>
-                            <button
-                                className="btn btn-lg"
-                                type="submit"
-                                style={{ color: '#00bfff', backgroundColor: 'white' }}
-                            >
-                                Login
+
+                        <button
+                            className="btn btn-lg"
+                            type="submit"
+                            disabled={!this.validateForm()}
+                            onClick={() => this.Login()}
+                            style={{ color: '#00bfff', backgroundColor: 'white' }}
+                        >
+                            Login
                             </button>
-                        </Link>
+
 
                         <div style={{ marginTop: '3em' }}>
                             <p><strong>Do not have an Account yet?</strong>
@@ -57,4 +77,10 @@ class Login extends Component {
     }
 }
 
-export default Login;
+function mapStateToProps(state){
+    const{ user } = state;
+    return{
+        user
+    }
+}
+export default withRouter(connect(mapStateToProps, null)(Login));
