@@ -48,7 +48,7 @@ class Register extends Component {
                         <button className="btn btn-lg btn-primary">Register</button>
                         
                         <div style={{marginTop: '3em'}}>
-                            <p><strong>Already Have an Account?</strong><Link to="/"> <a style={{color: 'white'}}>Sign In</a></Link></p>
+                            <p><strong>Already Have an Account?</strong><Link to="/login"> <a style={{color: 'white'}}>Sign In</a></Link></p>
                         </div>
                     </form>
                 </div>
