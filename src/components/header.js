@@ -3,7 +3,11 @@ import Navbar from "./navbar";
 import HeaderContent from "./header_content";
 
 class Header extends React.Component {
+  constructor(props){
+    super(props);
+  }
   render() {
+    // console.log('this.props header', this.props)
     return (
       <header
         className="Home112"
@@ -16,7 +20,7 @@ class Header extends React.Component {
           height: '900px'
         }}
       >
-        <Navbar />
+        <Navbar user={this.props.user}/>
         <HeaderContent />
       </header>
     );
