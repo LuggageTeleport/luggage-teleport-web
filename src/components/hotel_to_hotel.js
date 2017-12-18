@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
+import { Link } from 'react-router-dom'
 
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import MdHotel from 'react-icons/lib/md/hotel';
 import FaUser from 'react-icons/lib/fa/user';
+import FaClose from 'react-icons/lib/fa/close';
 import '../App.css';
 
 class HotelToHotel extends Component {
@@ -22,6 +25,66 @@ class HotelToHotel extends Component {
             OvernightStorage: false,
             HotelDropoffDate: ''
         }
+
+        this.handleOpenModal = this.handleOpenModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
+    }
+
+
+    handleOpenModal() {
+        this.setState({ showModal: true });
+    }
+
+    handleCloseModal() {
+        this.setState({ showModal: false });
+    }
+
+    PopupModal() {
+        return (
+            <div>
+                <button
+                    className="btn btn-lg"
+                    onClick={this.handleOpenModal}
+                    type="button"
+                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    Next
+                </button>
+                <Modal
+                    isOpen={this.state.showModal}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseModal}
+                    style={{ position: 'fixed' }}
+                >
+                    <div className="popup-image">
+                        <button style={{ margin: 5 }} className="btn btn-sm btn-danger" onClick={this.handleCloseModal}><FaClose /></button>
+
+                        <div align="center" style={{ marginTop: '10px' }}>
+                            <img
+                                src="https://www.luggageteleport.com/wp-content/themes/luggage/images/logo.png"
+                                style={{ padding: '10px', margin: '20px' }}
+                            />
+                            <div style={{ marginTop: '3em' }}>
+                                <Link to="/login"><button className="btn btn-lg btn-default">Login</button></Link>
+                                <h3 style={{ marginTop: '2em' }}>Or</h3>
+                                <Link to="/register"><button className="btn btn-lg btn-default">Sign Up</button></Link>
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+            </div>
+        );
+    }
+
+    buttonSubmit() {
+        return (
+            <button
+                className="btn btn-lg"
+                onClick={() => this.SubmitHotelToAirportData()}
+                type="button"
+                style={{ backgroundColor: 'yellow', width: '260px' }}>
+                Next
+        </button>
+        )
     }
 
     SubmitHotelToHotelData() {
@@ -40,6 +103,7 @@ class HotelToHotel extends Component {
     }
 
     render() {
+        const { email, isLogin } = this.props.user.user;
         return (
             <div class="polaroid">
                 <div class="container">
@@ -146,13 +210,11 @@ class HotelToHotel extends Component {
                             </div>
                             <hr />
 
-                            <button
-                                className="btn btn-lg"
-                                type="button"
-                                onClick={() => this.SubmitHotelToHotelData()}
-                                style={{ backgroundColor: 'yellow', width: '260px' }}>
-                                Next
-                            </button>
+                            {
+                                !isLogin ?
+                                    this.PopupModal()
+                                    : this.buttonSubmit()
+                            }
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,8 @@ import MdHotel from 'react-icons/lib/md/hotel';
 import GoArrowSmallRight from 'react-icons/lib/go/arrow-small-right';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
+import { connect } from 'react-redux';
 
 import Header from './components/header';
 import SectionOne from './components/section_one';
@@ -25,9 +26,14 @@ import AirportToAirport from './components/airport_to_airport';
 
 
 
-
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
   render() {
+    // console.log('this.props', this.props.user);
     return (
       <div>
         <ReactTooltip place="bottom" type="info" effect="solid" />
@@ -36,7 +42,7 @@ class App extends Component {
             <Row>
               <Col md={9} push={{ md: 3 }}>
                 <div>
-                  <Header />
+                  <Header user={this.props.user}/>
                   <SectionOne />
                   <SectionTwo />
                   <SectionThree />
@@ -74,16 +80,16 @@ class App extends Component {
                       </TabList>
 
                       <TabPanel>
-                        <AirportToHotel />
+                        <AirportToHotel user={this.props}/>
                       </TabPanel>
                       <TabPanel>
-                        <HotelToAirport />
+                        <HotelToAirport user={this.props}/>
                       </TabPanel>
                       <TabPanel>
-                        <HotelToHotel />
+                        <HotelToHotel user={this.props}/>
                       </TabPanel>
                       <TabPanel>
-                        <AirportToAirport />
+                        <AirportToAirport user={this.props}/>
                       </TabPanel>
 
                     </Tabs>
@@ -98,4 +104,11 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { user } = state;
+  return {
+    user
+  }
+}
+
+export default connect(mapStateToProps, null)(App);

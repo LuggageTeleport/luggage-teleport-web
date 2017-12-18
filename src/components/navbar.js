@@ -1,8 +1,46 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { LogUser } from '../actions';
+import { connect } from 'react-redux';
 
 class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  RenderLoginButton() {
+    return (
+      <button
+        style={{ backgroundColor: 'transparent', outline: 'none', border: 'none', color: '#115fdd' }}
+        onClick={() => this.Login()}>
+        <strong>Login</strong>
+      </button>
+    )
+  }
+
+  RenderLogoutButton() {
+    return (
+      <button
+        style={{ backgroundColor: 'transparent', outline: 'none', border: 'none', color: '#115fdd' }}
+        onClick={() => this.Logout()}>
+        <strong>Logout</strong>
+      </button>
+    )
+  }
+
+  Login() {
+    this.props.history.push('/login')
+  }
+
+  Logout() {
+    this.props.dispatch(LogUser(null, false))
+    this.props.history.push('/')
+  }
+
+
   render() {
+    const { isLogin } = this.props.user;
+    // console.log('this.props navbar', isLogin)
     return (
       <nav className="navbar def_nav11 navbar-expand-lg navbar-light bg-light">
         <div className="container">
@@ -64,14 +102,13 @@ class Navbar extends React.Component {
 
 
               <li
-                id="menu-item-20"
-                className="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"
+                id="menu-item-17"
+                className="menu-item menu-item-type-post_type menu-item-object-page menu-item-17"
               >
-                <Link to="/">
-                  <a>
-                    Logout
-                </a>
-                </Link>
+                {
+                  !isLogin ? this.RenderLoginButton() :
+                    this.RenderLogoutButton()
+                }
               </li>
 
             </ul>
@@ -82,4 +119,11 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+function mapsStateToProps(state) {
+  const { user } = state;
+  return {
+    user
+  }
+}
+
+export default withRouter(connect(mapsStateToProps, null)(Navbar));
