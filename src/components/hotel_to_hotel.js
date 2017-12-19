@@ -79,7 +79,7 @@ class HotelToHotel extends Component {
         return (
             <button
                 className="btn btn-lg"
-                onClick={() => this.SubmitHotelToAirportData()}
+                onClick={() => this.SubmitHotelToHotelData()}
                 type="button"
                 style={{ backgroundColor: 'yellow', width: '260px' }}>
                 Next
