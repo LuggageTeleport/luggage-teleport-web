@@ -22,8 +22,6 @@ const userData = {
   ClientId: CLIENT_ID
 }
 
-export const BUCKET_NAME = 'kangzeroos-s3-tutorial'
-
 export const userPool = new CognitoUserPool(userData);
 export const USERPOOL_ID = 'cognito-idp.' + REGION + '.amazonaws.com/' + USER_POOL_ID
 export const IDENTITY_POOL_ID = 'us-west-2:6c63b00c-1f66-490d-aece-1608a5ca0c58'
