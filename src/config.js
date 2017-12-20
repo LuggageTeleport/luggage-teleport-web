@@ -1,0 +1,29 @@
+// export default {
+//     cognito: {
+//       REGION: "us-west-2",
+//       USER_POOL_ID: "us-west-2_FLoshMhAR",
+//       APP_CLIENT_ID: "3cda4n7do7f9ou5gqerhue73ro",
+//     }
+//   };
+
+import { CognitoUserPool } from 'amazon-cognito-identity-js';
+import AWS from 'aws-sdk'
+
+
+const REGION = "us-west-2"
+const USER_POOL_ID = 'us-west-2_FLoshMhAR'
+const CLIENT_ID = '3cda4n7do7f9ou5gqerhue73ro'
+
+AWS.config.update({
+  region: REGION
+})
+const userData = {
+  UserPoolId: USER_POOL_ID,
+  ClientId: CLIENT_ID
+}
+
+export const BUCKET_NAME = 'kangzeroos-s3-tutorial'
+
+export const userPool = new CognitoUserPool(userData);
+export const USERPOOL_ID = 'cognito-idp.' + REGION + '.amazonaws.com/' + USER_POOL_ID
+export const IDENTITY_POOL_ID = 'us-west-2:6c63b00c-1f66-490d-aece-1608a5ca0c58'
