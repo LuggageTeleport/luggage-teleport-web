@@ -39,6 +39,20 @@ class Register extends Component {
             .catch((err) => {
                 console.log(err)
             })
+        history.push('/verify');
+    }
+
+    handleChange(attr, event){
+		this.setState({
+			[attr]: event.target.value
+		})
+	}
+
+    handleSubmit(e){
+        const history = createHistory();
+        this.signUp();
+        e.preventDefault();
+        e.target.reset()
     }
 
 
@@ -47,12 +61,13 @@ class Register extends Component {
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
                     <h1 style={{ color: 'yellow', marginBottom: '2em' }}>Register your Account</h1>
-                    <form>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
                         <div className="form-group">
                             <input
                                 className="form-control"
                                 type="text"
-                                onChange={e => this.setState({ name: e.target.value })}
+                                value={this.state.name}
+                                onChange={this.handleChange.bind(this, 'name')}
                                 placeholder="Your Fullname" required />
                         </div>
 
@@ -60,7 +75,8 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="email"
-                                onChange={e => this.setState({ email: e.target.value })}
+                                value={this.state.email}
+                                onChange={this.handleChange.bind(this, 'email')}
                                 placeholder="Your Active Email"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -69,7 +85,8 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="text"
-                                onChange={e => this.setState({ phone_number: e.target.value })}
+                                value={this.state.phone_number}
+                                onChange={this.handleChange.bind(this, 'phone_number')}
                                 style={{ marginTop: '10px' }}
                                 placeholder="Your Phone Number" required />
                         </div>
@@ -78,7 +95,8 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="password"
-                                onChange={e => this.setState({ password: e.target.value })}
+                                value={this.state.password}
+                                onChange={this.handleChange.bind(this, 'password')}
                                 placeholder="Your Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -87,7 +105,8 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="password"
-                                onChange={e => this.setState({ confirmPassword: e.target.value })}
+                                value={this.state.confirmPassword}
+                                onChange={this.handleChange.bind(this, 'confirmPassword')}
                                 placeholder="Confirm your Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -96,7 +115,6 @@ class Register extends Component {
                             className="btn btn-lg btn-primary"
                             type="submit"
                             disabled={!this.validateForm()}
-                            onClick={this.signUp()}
                         >
                             Register
                         </button>
