@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { verifyUserAccount } from '../aws_cognito';
+import { userPool } from '../config';
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { withRouter } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory'
 
 class VerifyAccount extends Component {
@@ -21,30 +24,46 @@ class VerifyAccount extends Component {
         );
     }
 
-    verifyPin(){
-        const history = createHistory()
-		// if(this.state.email && this.state.pin){
-			const { email, pin } = this.state;
-			verifyUserAccount(email, pin)
-			.then((data)=>{
-                console.log(data)
-				history.push('/login')
-			})
-			.catch((err)=>{
-				console.log(err)
+    confirm(email, pin) {
+
+        const userData = {
+            Username: email,
+            Pool: userPool
+        }
+        const cognitoUser = new CognitoUser(userData)
+        return new Promise((resolve, reject) =>
+
+            cognitoUser.confirmRegistration(pin, true, function (err, result) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(result);
+
             })
-            history.push('/login')
-		// }else{
-		// 	console.log('error')
-		// }
-	}
+        );
+    }
+
+    handleConfirmationSubmit = async event => {
+        event.preventDefault();
+        event.target.reset()
+        try {
+            await this.confirm(this.state.email, this.state.pin);
+            this.props.history.push('/login');
+            // this.setState({message: ''})
+        } catch (e) {
+            alert(e);
+            // this.setState({ message: e })
+        }
+    }
 
     render() {
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
+
                     <h1 style={{ color: 'yellow', marginBottom: '2em' }}>Verify your Account</h1>
-                    <form>
+                    <form onSubmit={this.handleConfirmationSubmit}>
                         <div className="form-group">
                             <input
                                 className="form-control"
@@ -66,7 +85,6 @@ class VerifyAccount extends Component {
                             className="btn btn-lg btn-primary"
                             type="submit"
                             disabled={!this.validateForm()}
-                            onClick={this.verifyPin()}
                         >
                             Verify
                         </button>
@@ -80,4 +98,4 @@ class VerifyAccount extends Component {
 
 }
 
-export default VerifyAccount;
+export default withRouter(VerifyAccount);
