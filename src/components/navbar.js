@@ -2,10 +2,35 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import { LogUser } from '../actions';
 import { connect } from 'react-redux';
+import { USER_POOL_ID, CLIENT_ID } from '../config';
+import { CognitoUserPool } from "amazon-cognito-identity-js";
+import AWS from "aws-sdk";
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
+
+    const currentUser = getCurrentUser();
+    console.log(getUserToken(currentUser));
+    if(currentUser){
+      console.log(getUserToken(currentUser));
+    } else {
+      console.log(false);
+    }
+  }
+
+  signOutUser() {
+    const currentUser = getCurrentUser();
+  
+    if (currentUser !== null) {
+      currentUser.signOut();
+    }
+  
+    if (AWS.config.credentials) {
+      AWS.config.credentials.clearCachedId();
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({});
+    }
+    this.props.history.push('/')
   }
 
   RenderLoginButton() {
@@ -22,7 +47,7 @@ class Navbar extends React.Component {
     return (
       <button
         style={{ backgroundColor: 'transparent', outline: 'none', border: 'none', color: '#115fdd' }}
-        onClick={() => this.Logout()}>
+        onClick={() => this.signOutUser()}>
         <strong>Logout</strong>
       </button>
     )
@@ -32,15 +57,9 @@ class Navbar extends React.Component {
     this.props.history.push('/login')
   }
 
-  Logout() {
-    this.props.dispatch(LogUser(null, false))
-    this.props.history.push('/')
-  }
-
 
   render() {
-    const { isLogin } = this.props.user;
-    // console.log('this.props navbar', isLogin)
+    const currentUser = getCurrentUser();
     return (
       <nav className="navbar def_nav11 navbar-expand-lg navbar-light bg-light">
         <div className="container">
@@ -106,7 +125,7 @@ class Navbar extends React.Component {
                 className="menu-item menu-item-type-post_type menu-item-object-page menu-item-17"
               >
                 {
-                  !isLogin ? this.RenderLoginButton() :
+                  !currentUser ? this.RenderLoginButton() :
                     this.RenderLogoutButton()
                 }
               </li>
@@ -117,6 +136,29 @@ class Navbar extends React.Component {
       </nav>
     );
   }
+}
+
+function getUserToken(currentUser) {
+  return new Promise((resolve, reject) => {
+    if (currentUser === null) {
+      return false;
+    }
+    currentUser.getSession(function(err, session) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(session.getIdToken().getJwtToken());
+    });
+  });
+}
+
+function getCurrentUser() {
+  const userPool = new CognitoUserPool({
+    UserPoolId: USER_POOL_ID,
+    ClientId: CLIENT_ID
+  });
+  return userPool.getCurrentUser();
 }
 
 function mapsStateToProps(state) {
