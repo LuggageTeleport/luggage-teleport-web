@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import { verifyUserAccount } from '../aws_cognito';
 import { userPool } from '../config';
-import {
-    CognitoUser
-  } from "amazon-cognito-identity-js";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { withRouter } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory'
 
 class VerifyAccount extends Component {
@@ -33,33 +32,36 @@ class VerifyAccount extends Component {
         }
         const cognitoUser = new CognitoUser(userData)
         return new Promise((resolve, reject) =>
-        
-        cognitoUser.confirmRegistration(pin, true, function(err, result) {
-            if (err) {
-              reject(err);
-              return;
-            }
-            resolve(result);
-            // this.props.history.push('/login');
-            console.log(result);
-          })
-        );
-      }
 
-      handleConfirmationSubmit = async event => {
+            cognitoUser.confirmRegistration(pin, true, function (err, result) {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve(result);
+
+            })
+        );
+    }
+
+    handleConfirmationSubmit = async event => {
         event.preventDefault();
         event.target.reset()
         try {
-          await this.confirm(this.state.email, this.state.pin);
+            await this.confirm(this.state.email, this.state.pin);
+            this.props.history.push('/login');
+            // this.setState({message: ''})
         } catch (e) {
-          alert(e);
+            alert(e);
+            // this.setState({ message: e })
         }
-      }
+    }
 
     render() {
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
+
                     <h1 style={{ color: 'yellow', marginBottom: '2em' }}>Verify your Account</h1>
                     <form onSubmit={this.handleConfirmationSubmit}>
                         <div className="form-group">
@@ -96,4 +98,4 @@ class VerifyAccount extends Component {
 
 }
 
-export default VerifyAccount;
+export default withRouter(VerifyAccount);
