@@ -6,14 +6,19 @@ import { USER_POOL_ID, CLIENT_ID } from '../config';
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 import AWS from "aws-sdk";
 
+
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
 
     const currentUser = getCurrentUser();
-    console.log(getUserToken(currentUser));
+    getUserToken(currentUser);
     if(currentUser){
-      console.log(getUserToken(currentUser));
+      const { dispatch } = this.props;
+      const { email } = currentUser.signInUserSession.idToken.payload;
+      // console.log('current', currentUser.signInUserSession.idToken.payload);
+      dispatch(LogUser(email))
+      getUserToken(currentUser);
     } else {
       console.log(false);
     }
@@ -31,6 +36,7 @@ class Navbar extends React.Component {
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({});
     }
     this.props.history.push('/')
+    window.location.reload();
   }
 
   RenderLoginButton() {
