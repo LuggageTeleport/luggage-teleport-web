@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { signUpUser } from '../aws_cognito';
-import createHistory from 'history/createBrowserHistory';
-import { USER_POOL_ID, CLIENT_ID } from '../config'
+import { USER_POOL_ID, CLIENT_ID } from '../config';
+
 import {
     CognitoUserPool,
     CognitoUserAttribute,
@@ -60,24 +60,15 @@ class Register extends Component {
                     reject(err);
                     return;
                 }
-                const history = createHistory()
-                console.log(result)
+                // console.log(result)
                 this.props.history.push('/verify');
                 resolve(result.user);
             })
         );
     }
 
-    // handleChange(attr, event) {
-    //     this.setState({
-    //         [attr]: event.target.value
-    //     })
-    // }
-
     handleSubmit = async event => {
         event.preventDefault();
-
-        // this.setState({ isLoading: true });
 
         try {
             const newUser = await this.signup(this.state.name, this.state.email, this.state.phone_number, this.state.password);
@@ -85,14 +76,8 @@ class Register extends Component {
             alert(e);
         }
 
-        // this.setState({ isLoading: false });
     }
 
-    // redirectTo(route){
-    //     return(
-    //         <Link to={route}></Link>
-    //     )
-    // }
 
 
     render() {
@@ -151,7 +136,7 @@ class Register extends Component {
                             disabled={!this.validateForm()}
                         >
                             Register
-                            </button>
+                        </button>
 
 
                         <div style={{ marginTop: '3em' }}>
