@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { signUpUser } from '../aws_cognito';
 import createHistory from 'history/createBrowserHistory';
+import { USER_POOL_ID, CLIENT_ID } from '../config'
+import {
+    CognitoUserPool,
+    CognitoUserAttribute,
+    CognitoIdentityServiceProvider,
+    AuthenticationDetails,
+    CognitoUser
+} from "amazon-cognito-identity-js";
 import '../App.css';
 
 class Register extends Component {
@@ -27,33 +35,64 @@ class Register extends Component {
         );
     }
 
-    signUp() {
-        const history = createHistory();
-        const { name, phone_number, email, password } = this.state;
-        signUpUser(email, name, phone_number, password)
-            .then((result) => {
-                history.push('/verify');
-                localStorage.setItem('User_Email', email)
+    signup(name, email, phone_number, password) {
+        const userPool = new CognitoUserPool({
+            UserPoolId: USER_POOL_ID,
+            ClientId: CLIENT_ID
+        });
+        const attributeList = []
+        const dataName = {
+            Name: 'name',
+            Value: name
+        }
+        const dataPhoneNumber = {
+            Name: 'phone_number',
+            Value: phone_number
+        }
+        
+        const attributeName = new CognitoUserAttribute(dataName);
+        const attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
+        attributeList.push(attributeName, attributePhoneNumber);
+
+        return new Promise((resolve, reject) =>
+            userPool.signUp(email, password, attributeList, null, (err, result) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                const history = createHistory()
                 console.log(result)
+                this.props.history.push('/verify');
+                resolve(result.user);
             })
-            .catch((err) => {
-                console.log(err)
-            })
-        history.push('/verify');
+        );
     }
 
-    handleChange(attr, event){
-		this.setState({
-			[attr]: event.target.value
-		})
-	}
+    // handleChange(attr, event) {
+    //     this.setState({
+    //         [attr]: event.target.value
+    //     })
+    // }
 
-    handleSubmit(e){
-        const history = createHistory();
-        this.signUp();
-        e.preventDefault();
-        e.target.reset()
+    handleSubmit = async event => {
+        event.preventDefault();
+
+        // this.setState({ isLoading: true });
+
+        try {
+            const newUser = await this.signup(this.state.name, this.state.email, this.state.phone_number, this.state.password);
+        } catch (e) {
+            alert(e);
+        }
+
+        // this.setState({ isLoading: false });
     }
+
+    // redirectTo(route){
+    //     return(
+    //         <Link to={route}></Link>
+    //     )
+    // }
 
 
     render() {
@@ -61,13 +100,12 @@ class Register extends Component {
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
                     <h1 style={{ color: 'yellow', marginBottom: '2em' }}>Register your Account</h1>
-                    <form onSubmit={this.handleSubmit.bind(this)}>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input
                                 className="form-control"
                                 type="text"
-                                value={this.state.name}
-                                onChange={this.handleChange.bind(this, 'name')}
+                                onChange={e => this.setState({ name: e.target.value })}
                                 placeholder="Your Fullname" required />
                         </div>
 
@@ -75,8 +113,7 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="email"
-                                value={this.state.email}
-                                onChange={this.handleChange.bind(this, 'email')}
+                                onChange={e => this.setState({ email: e.target.value })}
                                 placeholder="Your Active Email"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -85,8 +122,7 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="text"
-                                value={this.state.phone_number}
-                                onChange={this.handleChange.bind(this, 'phone_number')}
+                                onChange={e => this.setState({ phone_number: e.target.value })}
                                 style={{ marginTop: '10px' }}
                                 placeholder="Your Phone Number" required />
                         </div>
@@ -95,8 +131,7 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="password"
-                                value={this.state.password}
-                                onChange={this.handleChange.bind(this, 'password')}
+                                onChange={e => this.setState({ password: e.target.value })}
                                 placeholder="Your Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -105,8 +140,7 @@ class Register extends Component {
                             <input
                                 className="form-control"
                                 type="password"
-                                value={this.state.confirmPassword}
-                                onChange={this.handleChange.bind(this, 'confirmPassword')}
+                                onChange={e => this.setState({ confirmPassword: e.target.value })}
                                 placeholder="Confirm your Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -117,7 +151,8 @@ class Register extends Component {
                             disabled={!this.validateForm()}
                         >
                             Register
-                        </button>
+                            </button>
+
 
                         <div style={{ marginTop: '3em' }}>
                             <p><strong>Already Have an Account?</strong><Link to="/login"> <a style={{ color: 'white' }}>Sign In</a></Link></p>

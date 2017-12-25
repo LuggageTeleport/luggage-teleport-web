@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LogUser } from '../actions';
+import { USER_POOL_ID, CLIENT_ID } from '../config'
+import {
+    CognitoUserPool,
+    AuthenticationDetails,
+    CognitoUser
+} from "amazon-cognito-identity-js";
 import '../App.css';
 
 class Login extends Component {
@@ -22,10 +28,45 @@ class Login extends Component {
         );
     }
 
-    Login() {
-        const { email } = this.state;
-        this.props.dispatch(LogUser(email, true));
-        this.props.history.push('/');
+    Login(email, password) {
+        let { dispatch } = this.props
+        const userPool = new CognitoUserPool({
+            UserPoolId: USER_POOL_ID,
+            ClientId: CLIENT_ID
+        });
+        const user = new CognitoUser({ Username: email, Pool: userPool });
+        const authenticationData = { Username: email, Password: password };
+        const authenticationDetails = new AuthenticationDetails(authenticationData);
+
+        return new Promise((resolve, reject) =>
+            user.authenticateUser(authenticationDetails, {
+                onSuccess: result => {
+                    resolve()
+                    this.props.history.push('/');
+                    const { email } = result.idToken.payload
+                    console.log(result)
+                    dispatch(LogUser(email))          
+                },
+                onFailure: err => reject(err)
+            })
+        );
+    }
+
+    // handleChange = event => {
+    //     this.setState({
+    //         [event.target.id]: event.target.value
+    //     });
+    // }
+
+    handleSubmit = async event => {
+        event.preventDefault();
+
+        try {
+            await this.Login(this.state.email, this.state.password);
+            //   this.props.userHasAuthenticated(true);
+        } catch (e) {
+            alert(e);
+        }
     }
 
     render() {
@@ -37,12 +78,12 @@ class Login extends Component {
                         src="https://www.luggageteleport.com/wp-content/themes/luggage/images/logo.png"
                         style={{ padding: '10px', margin: '20px' }}
                     />
-                    <form>
+                    <form onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <input
                                 className="form-control"
                                 type="text"
-                                onChange={e => this.setState({ email: e.target.value })}
+                                onChange={e => this.setState({email: e.target.value})}
                                 placeholder="Email or Phone Number" required />
                         </div>
 
@@ -50,7 +91,7 @@ class Login extends Component {
                             <input
                                 className="form-control"
                                 type="password"
-                                onChange={e => this.setState({ password: e.target.value })}
+                                onChange={e => this.setState({password: e.target.value})}
                                 placeholder="password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
@@ -59,7 +100,6 @@ class Login extends Component {
                             className="btn btn-lg"
                             type="submit"
                             disabled={!this.validateForm()}
-                            onClick={() => this.Login()}
                             style={{ color: '#00bfff', backgroundColor: 'white' }}
                         >
                             Login
@@ -77,9 +117,9 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps(state){
-    const{ user } = state;
-    return{
+function mapStateToProps(state) {
+    const { user } = state;
+    return {
         user
     }
 }
