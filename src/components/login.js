@@ -42,35 +42,24 @@ class Login extends Component {
             user.authenticateUser(authenticationDetails, {
                 onSuccess: result => {
                     resolve()
-                    this.props.history.push('/');
-                    const { email } = result.idToken.payload
-                    console.log(result)
-                    dispatch(LogUser(email))          
+                    this.props.history.push('/');        
                 },
                 onFailure: err => reject(err)
             })
         );
     }
 
-    // handleChange = event => {
-    //     this.setState({
-    //         [event.target.id]: event.target.value
-    //     });
-    // }
-
     handleSubmit = async event => {
         event.preventDefault();
 
         try {
             await this.Login(this.state.email, this.state.password);
-            //   this.props.userHasAuthenticated(true);
         } catch (e) {
             alert(e);
         }
     }
 
     render() {
-        // console.log('this.props', this.props)
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
