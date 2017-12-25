@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
-import { getCurrentUser } from '../aws_cognito'
+import { getCurrentUser } from '../aws_cognito';
+import { connect } from 'react-redux';
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -16,6 +17,7 @@ class AirportToHotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
             dateType: 'text',
             timeType: 'text',
             Airport: '',
@@ -33,7 +35,6 @@ class AirportToHotel extends Component {
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
-
     }
 
     handleOpenModal() {
@@ -136,7 +137,9 @@ class AirportToHotel extends Component {
     }
 
     SubmitHotelToAirportData() {
+        // const { email } = this.props.user.user;
         const {
+            email,
             airline,
             airport,
             hotel,
@@ -146,13 +149,18 @@ class AirportToHotel extends Component {
             DropoffDate,
             HotelBookingRef,
             NameUnderHotelRsv } = this.state;
-
+            // this.setState({email: this.props.user.email})
         console.log(this.state)
     }
 
-    render() {
+    componentDidMount(){
         // console.log('this.props', this.props.user);
-        const { email } = this.props.user.user;
+        const { email } = this.props.user;
+        this.setState({email})
+    }
+
+    render() {
+        
         const currentUser = getCurrentUser()
         // console.log(email, 'email')
         return (
@@ -160,6 +168,7 @@ class AirportToHotel extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
+                        
                             {/**
                          * Airport Section
                          */}
@@ -294,4 +303,11 @@ class AirportToHotel extends Component {
     }
 }
 
-export default AirportToHotel;
+function mapsStateToProps(state) {
+    const { user } = state;
+    return {
+      user
+    }
+  }
+
+export default connect(mapsStateToProps, null)(AirportToHotel);

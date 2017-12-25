@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom'
-import { getCurrentUser } from '../aws_cognito'
+import { getCurrentUser } from '../aws_cognito';
+import { connect } from 'react-redux';
 
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import MdHotel from 'react-icons/lib/md/hotel';
@@ -14,6 +15,7 @@ class HotelToHotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: '',
             dateType: 'text',
             timeType: 'text',
             HotelPickup: '',
@@ -103,8 +105,13 @@ class HotelToHotel extends Component {
         console.log(this.state);
     }
 
+    componentDidMount(){
+        // console.log('this.props', this.props.user);
+        const { email } = this.props.user;
+        this.setState({email})
+    }
+
     render() {
-        const { email } = this.props.user.user;
         const currentUser = getCurrentUser()
         return (
             <div class="polaroid">
@@ -225,4 +232,11 @@ class HotelToHotel extends Component {
     }
 }
 
-export default HotelToHotel;
+function mapsStateToProps(state) {
+    const { user } = state;
+    return {
+      user
+    }
+  }
+
+export default connect(mapsStateToProps, null)(HotelToHotel);
