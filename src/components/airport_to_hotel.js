@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
+import { getCurrentUser } from '../aws_cognito'
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -151,7 +152,9 @@ class AirportToHotel extends Component {
 
     render() {
         // console.log('this.props', this.props.user);
-        const { email, isLogin } = this.props.user.user;
+        const { email } = this.props.user.user;
+        const currentUser = getCurrentUser()
+        // console.log(email, 'email')
         return (
             <div class="polaroid">
                 <div class="container">
@@ -278,7 +281,7 @@ class AirportToHotel extends Component {
                             </div>
                             <hr />
                             {
-                                !isLogin ?
+                                !currentUser ?
                                     this.PopupModal()
                                     : this.buttonSubmit()
                             }

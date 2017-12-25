@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom'
+import { getCurrentUser } from '../aws_cognito'
 
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import MdHotel from 'react-icons/lib/md/hotel';
@@ -103,7 +104,8 @@ class HotelToHotel extends Component {
     }
 
     render() {
-        const { email, isLogin } = this.props.user.user;
+        const { email } = this.props.user.user;
+        const currentUser = getCurrentUser()
         return (
             <div class="polaroid">
                 <div class="container">
@@ -211,7 +213,7 @@ class HotelToHotel extends Component {
                             <hr />
 
                             {
-                                !isLogin ?
+                                !currentUser ?
                                     this.PopupModal()
                                     : this.buttonSubmit()
                             }
