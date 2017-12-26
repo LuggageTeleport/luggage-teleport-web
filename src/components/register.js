@@ -26,7 +26,8 @@ class Register extends Component {
             newUser: null,
             error: {
                 message: ''
-            }
+            },
+            isLoading: false
         }
     }
 
@@ -72,11 +73,14 @@ class Register extends Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-
+        this.setState({ isLoading: true })
         try {
             const newUser = await this.signup(this.state.name, this.state.email, this.state.phone_number, this.state.password);
         } catch (e) {
-            this.setState({ error: e })
+            this.setState({
+                error: e,
+                isLoading: false
+            })
             alert(this.state.error.message);
         }
 
@@ -85,6 +89,7 @@ class Register extends Component {
 
 
     render() {
+        const { isLoading } = this.state;
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
@@ -133,14 +138,27 @@ class Register extends Component {
                                 placeholder="Confirm your Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
+                        {
+                            !isLoading ?
+                                <button
+                                    className="btn btn-lg btn-primary"
+                                    type="submit"
+                                    style={{ width: '160px' }}
+                                    disabled={!this.validateForm()}
+                                >
+                                    Register
+                                </button>
+                                :
+                                <button
+                                    className="btn btn-lg btn-primary"
+                                    type="submit"
+                                    style={{ width: '160px' }}
+                                    disabled={true}
+                                >
+                                    <i className="fa fa-spinner fa-spin"></i> Submitting...
+                                </button>
+                        }
 
-                        <button
-                            className="btn btn-lg btn-primary"
-                            type="submit"
-                            disabled={!this.validateForm()}
-                        >
-                            Register
-                        </button>
 
 
                         <div style={{ marginTop: '3em' }}>

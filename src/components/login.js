@@ -21,7 +21,7 @@ class Login extends Component {
             error: {
                 message: ''
             },
-            alertVisible: true
+            isLoading: false
         }
     }
 
@@ -48,24 +48,33 @@ class Login extends Component {
                     resolve()
                     this.props.history.push('/');
                 },
-                onFailure: err => reject(err)
+                onFailure: err => {
+                    reject(err)
+                }
+
             })
         );
     }
 
     handleSubmit = async event => {
         event.preventDefault();
+        this.setState({ isLoading: true })
 
         try {
             await this.Login(this.state.email, this.state.password);
+
         } catch (e) {
-            this.setState({ error: e })
+            this.setState({
+                isLoading: false,
+                error: e
+            })
             alert(this.state.error.message)
         }
     }
 
 
     render() {
+        const { isLoading } = this.state;
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
@@ -90,15 +99,28 @@ class Login extends Component {
                                 placeholder="password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
-
-                        <button
-                            className="btn btn-lg"
-                            type="submit"
-                            disabled={!this.validateForm()}
-                            style={{ color: '#00bfff', backgroundColor: 'white' }}
-                        >
-                            Login
+                        {
+                            !isLoading ?
+                                <button
+                                    className="btn btn-lg"
+                                    type="submit"
+                                    disabled={!this.validateForm()}
+                                    style={{ color: '#00bfff', backgroundColor: 'white', width: '140px' }}
+                                >
+                                    Login
                             </button>
+                            
+                                :
+                                <button
+                                    className="btn btn-lg"
+                                    type="submit"
+                                    disabled={true}
+                                    style={{ color: '#00bfff', backgroundColor: 'white', width: '140px'  }}
+                                >
+                                   <i className="fa fa-spinner fa-spin"></i> Loggedin...
+                            </button>
+                        }
+
 
 
                         <div style={{ marginTop: '3em' }}>
