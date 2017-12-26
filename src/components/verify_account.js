@@ -13,7 +13,11 @@ class VerifyAccount extends Component {
 
         this.state = {
             email: '',
-            pin: ''
+            pin: '',
+            error: {
+                message: ''
+            },
+            isLoading: false
         }
     }
 
@@ -46,18 +50,21 @@ class VerifyAccount extends Component {
 
     handleConfirmationSubmit = async event => {
         event.preventDefault();
-        event.target.reset()
+        this.setState({ isLoading: true })
         try {
             await this.confirm(this.state.email, this.state.pin);
             this.props.history.push('/login');
-            // this.setState({message: ''})
         } catch (e) {
-            alert(e);
-            // this.setState({ message: e })
+            this.setState({
+                error: e,
+                isLoading: false
+            })
+            alert(this.state.error.message);
         }
     }
 
     render() {
+        const { isLoading } = this.state;
         return (
             <div className="bg-image">
                 <div align="center" style={{ marginTop: '100px' }}>
@@ -80,14 +87,27 @@ class VerifyAccount extends Component {
                                 placeholder="Your Pin" required />
                         </div>
 
+                        {
+                            !isLoading ?
+                                <button
+                                    className="btn btn-lg btn-primary"
+                                    type="submit"
+                                    style={{ width: '160px' }}
+                                    disabled={!this.validateForm()}
+                                >
+                                    Verify
+                                </button>
+                                :
+                                <button
+                                    className="btn btn-lg btn-primary"
+                                    type="submit"
+                                    style={{ width: '160px' }}
+                                    disabled={true}
+                                >
+                                    <i className="fa fa-spinner fa-spin"></i> Verifying...
+                                </button>
+                        }
 
-                        <button
-                            className="btn btn-lg btn-primary"
-                            type="submit"
-                            disabled={!this.validateForm()}
-                        >
-                            Verify
-                        </button>
 
 
                     </form>
