@@ -23,7 +23,10 @@ class Register extends Component {
             phone_number: '',
             password: '',
             confirmPassword: '',
-            newUser: null
+            newUser: null,
+            error: {
+                message: ''
+            }
         }
     }
 
@@ -49,7 +52,7 @@ class Register extends Component {
             Name: 'phone_number',
             Value: phone_number
         }
-        
+
         const attributeName = new CognitoUserAttribute(dataName);
         const attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
         attributeList.push(attributeName, attributePhoneNumber);
@@ -73,7 +76,8 @@ class Register extends Component {
         try {
             const newUser = await this.signup(this.state.name, this.state.email, this.state.phone_number, this.state.password);
         } catch (e) {
-            alert(e);
+            this.setState({ error: e })
+            alert(this.state.error.message);
         }
 
     }

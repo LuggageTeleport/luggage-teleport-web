@@ -13,7 +13,10 @@ class VerifyAccount extends Component {
 
         this.state = {
             email: '',
-            pin: ''
+            pin: '',
+            error:{
+                message: ''
+            }
         }
     }
 
@@ -52,8 +55,8 @@ class VerifyAccount extends Component {
             this.props.history.push('/login');
             // this.setState({message: ''})
         } catch (e) {
-            alert(e);
-            // this.setState({ message: e })
+            this.setState({ error: e })
+            alert(this.state.error.message);
         }
     }
 
