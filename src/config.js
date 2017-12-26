@@ -11,8 +11,8 @@ import AWS from 'aws-sdk'
 
 
 const REGION = "us-west-2"
-const USER_POOL_ID = 'us-west-2_FLoshMhAR'
-const CLIENT_ID = '3cda4n7do7f9ou5gqerhue73ro'
+export const USER_POOL_ID = 'us-west-2_FLoshMhAR'
+export const CLIENT_ID = '3cda4n7do7f9ou5gqerhue73ro'
 
 AWS.config.update({
   region: REGION

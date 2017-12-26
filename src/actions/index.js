@@ -1,10 +1,9 @@
 import { SIGNED_IN } from '../constants';
 
-export function LogUser(email, isLogin) {
+export function LogUser(email) {
     const action = {
         type: SIGNED_IN,
-        email,
-        isLogin
+        email
     }
     return action;
 }
