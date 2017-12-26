@@ -80,16 +80,16 @@ class App extends Component {
                       </TabList>
 
                       <TabPanel>
-                        <AirportToHotel user={this.props}/>
+                        <AirportToHotel/>
                       </TabPanel>
                       <TabPanel>
-                        <HotelToAirport user={this.props}/>
+                        <HotelToAirport/>
                       </TabPanel>
                       <TabPanel>
-                        <HotelToHotel user={this.props}/>
+                        <HotelToHotel/>
                       </TabPanel>
                       <TabPanel>
-                        <AirportToAirport user={this.props}/>
+                        <AirportToAirport/>
                       </TabPanel>
 
                     </Tabs>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom'
+import { getCurrentUser } from '../aws_cognito';
+import { connect } from 'react-redux';
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -13,6 +15,7 @@ class AirportToAirport extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email:'',
             dateType: 'text',
             timeType: 'text',
             AirportPickup: '',
@@ -101,8 +104,15 @@ class AirportToAirport extends Component {
         console.log(this.state);
     }
 
+    componentDidMount(){
+        // console.log('this.props', this.props.user);
+        const { email } = this.props.user;
+        this.setState({email})
+    }
+
     render() {
-        const { email, isLogin } = this.props.user.user;
+        // const { email } = this.props.user.user;
+        const currentUser = getCurrentUser()
         return (
             <div class="polaroid">
                 <div class="container">
@@ -212,7 +222,7 @@ class AirportToAirport extends Component {
                             </div>
                             <hr />
                             {
-                                !isLogin ?
+                                !currentUser ?
                                     this.PopupModal()
                                     : this.buttonSubmit()
                             }
@@ -224,5 +234,12 @@ class AirportToAirport extends Component {
     }
 }
 
-export default AirportToAirport;
+function mapsStateToProps(state) {
+    const { user } = state;
+    return {
+      user
+    }
+  }
+
+export default connect(mapsStateToProps, null)(AirportToAirport);
 
