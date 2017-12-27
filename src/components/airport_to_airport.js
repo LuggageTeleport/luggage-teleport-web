@@ -15,7 +15,8 @@ class AirportToAirport extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email:'',
+            Email:'',
+            PhoneNumber: '',
             dateType: 'text',
             timeType: 'text',
             AirportPickup: '',
@@ -106,8 +107,8 @@ class AirportToAirport extends Component {
 
     componentDidMount(){
         // console.log('this.props', this.props.user);
-        const { email } = this.props.user;
-        this.setState({email})
+        const { Email, PhoneNumber } = this.props.user;
+        this.setState({Email, PhoneNumber})
     }
 
     render() {
