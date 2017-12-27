@@ -17,7 +17,8 @@ class AirportToHotel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            Email: '',
+            PhoneNumber: '',
             dateType: 'text',
             timeType: 'text',
             Airport: '',
@@ -69,9 +70,9 @@ class AirportToHotel extends Component {
                                 src="https://www.luggageteleport.com/wp-content/themes/luggage/images/logo.png"
                                 style={{ padding: '10px', margin: '20px' }}
                             />
-                            <div style={{marginTop: '3em'}}>
+                            <div style={{ marginTop: '3em' }}>
                                 <Link to="/login"><button className="btn btn-lg btn-default">Login</button></Link>
-                                <h3 style={{marginTop: '2em'}}>Or</h3>
+                                <h3 style={{ marginTop: '2em' }}>Or</h3>
                                 <Link to="/register"><button className="btn btn-lg btn-default">Sign Up</button></Link>
                             </div>
                         </div>
@@ -375,7 +376,7 @@ class AirportToHotel extends Component {
     SubmitHotelToAirportData() {
         // const { email } = this.props.user.user;
         const {
-            email,
+            Email,
             airline,
             airport,
             hotel,
@@ -385,18 +386,21 @@ class AirportToHotel extends Component {
             DropoffDate,
             HotelBookingRef,
             NameUnderHotelRsv } = this.state;
-            // this.setState({email: this.props.user.email})
+        // this.setState({email: this.props.user.email})
         console.log(this.state)
     }
 
-    componentDidMount(){
-        // console.log('this.props', this.props.user);
-        const { email } = this.props.user;
-        this.setState({email})
+    componentDidMount() {
+        console.log('this.props', this.props.user);
+        const { Email, PhoneNumber } = this.props.user;
+        this.setState({
+            Email,
+            PhoneNumber 
+        })
     }
 
     render() {
-        
+
         const currentUser = getCurrentUser()
         // console.log(email, 'email')
         return (
@@ -404,7 +408,7 @@ class AirportToHotel extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
-                        
+
                             {/**
                          * Airport Section
                          */}
@@ -542,8 +546,8 @@ class AirportToHotel extends Component {
 function mapsStateToProps(state) {
     const { user } = state;
     return {
-      user
+        user
     }
-  }
+}
 
 export default connect(mapsStateToProps, null)(AirportToHotel);

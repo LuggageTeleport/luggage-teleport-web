@@ -15,9 +15,9 @@ class Navbar extends React.Component {
     getUserToken(currentUser);
     if(currentUser){
       const { dispatch } = this.props;
-      const { email } = currentUser.signInUserSession.idToken.payload;
+      const { email, phone_number } = currentUser.signInUserSession.idToken.payload;
       // console.log('current', currentUser.signInUserSession.idToken.payload);
-      dispatch(LogUser(email))
+      dispatch(LogUser(email, phone_number))
       getUserToken(currentUser);
     } else {
       console.log(false);
