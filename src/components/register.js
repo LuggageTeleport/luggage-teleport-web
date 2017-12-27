@@ -45,6 +45,10 @@ class Register extends Component {
             ClientId: CLIENT_ID
         });
         const attributeList = []
+        const dataEmail = {
+            Name: 'email',
+            Value: email
+        }
         const dataName = {
             Name: 'name',
             Value: name
@@ -54,9 +58,10 @@ class Register extends Component {
             Value: phone_number
         }
 
+        const attributeEmail = new CognitoUserAttribute(dataEmail);
         const attributeName = new CognitoUserAttribute(dataName);
         const attributePhoneNumber = new CognitoUserAttribute(dataPhoneNumber);
-        attributeList.push(attributeName, attributePhoneNumber);
+        attributeList.push(attributeEmail, attributeName, attributePhoneNumber);
 
         return new Promise((resolve, reject) =>
             userPool.signUp(email, password, attributeList, null, (err, result) => {
@@ -137,6 +142,15 @@ class Register extends Component {
                                 onChange={e => this.setState({ confirmPassword: e.target.value })}
                                 placeholder="Confirm your Password"
                                 style={{ marginTop: '10px' }} required />
+                        </div>
+                        <div>
+                            <p><strong>Notes </strong>
+                                <i className="registerNotes">
+                                    Password must contain Lowercase, Uppercase,
+                                    and Special Character
+                                    and minimum length of Password is 8 character
+                                </i>
+                            </p>
                         </div>
                         {
                             !isLoading ?
