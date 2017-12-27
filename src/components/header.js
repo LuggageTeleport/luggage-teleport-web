@@ -20,7 +20,7 @@ class Header extends React.Component {
           height: '900px'
         }}
       >
-        <Navbar user={this.props.user}/>
+        <Navbar/>
         <HeaderContent />
       </header>
     );
