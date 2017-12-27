@@ -144,9 +144,9 @@ class Register extends Component {
                                 style={{ marginTop: '10px' }} required />
                         </div>
                         <div>
-                            <p><strong>Notes </strong>
+                            <p><strong>Notes! </strong>
                                 <i className="registerNotes">
-                                    Password must contain Lowercase, Uppercase,
+                                    Password <strong>must</strong> contain Lowercase, Uppercase,
                                     and Special Character
                                     and minimum length of Password is 8 character
                                 </i>
