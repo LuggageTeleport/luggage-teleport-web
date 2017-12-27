@@ -7,7 +7,9 @@ import MdHotel from 'react-icons/lib/md/hotel';
 import GoArrowSmallRight from 'react-icons/lib/go/arrow-small-right';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import MediaQuery from 'react-responsive';
 import ReactTooltip from 'react-tooltip';
+import { slide as Menu } from 'react-burger-menu'
 import { connect } from 'react-redux';
 
 import Header from './components/header';
@@ -24,6 +26,8 @@ import HotelToAirport from './components/hotel_to_airport';
 import HotelToHotel from './components/hotel_to_hotel';
 import AirportToAirport from './components/airport_to_airport';
 
+import BookingForm from './components/booking_form';
+
 
 
 class App extends Component {
@@ -38,66 +42,49 @@ class App extends Component {
       <div>
         <ReactTooltip place="bottom" type="info" effect="solid" />
         <div>
-          <Container fluid style={{ lineHeight: '35px' }}>
-            <Row>
-              <Col md={9} push={{ md: 3 }}>
-                <div>
-                  <Header user={this.props.user}/>
-                  <SectionOne />
-                  <SectionTwo />
-                  <SectionThree />
-                  <SectionFour />
-                  <SectionFive />
-                  <SectionSix />
-                  <Footer />
-                </div>
-              </Col>
-              <Col md={3} pull={{ md: 9 }}>
-                <div className="bookingForm" style={{ marginLeft: 9 }}>
-                  <div style={{ marginTop: '30px' }}>
-                    <Tabs>
-                      <TabList>
-                        <Tab data-tip="Airport - Hotel">
-                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} />
-                          <GoArrowSmallRight />
-                          <MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} />
-                        </Tab>
-                        <Tab data-tip="Hotel - Airport">
-                          <MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} />
-                          <GoArrowSmallRight />
-                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} />
-                        </Tab>
-                        <Tab data-tip="Hotel - Hotel">
-                          <MdHotel style={{ fontSize: '1.1em', color: '#00bfff' }} />
-                          <GoArrowSmallRight />
-                          <MdHotel style={{ fontSize: '1.1em', color: '#e6e600' }} />
-                        </Tab>
-                        <Tab data-tip="Airport - Airport">
-                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#00bfff' }} />
-                          <GoArrowSmallRight />
-                          <MdLocalAirport style={{ fontSize: '1.1em', color: '#e6e600' }} />
-                        </Tab>
-                      </TabList>
-
-                      <TabPanel>
-                        <AirportToHotel/>
-                      </TabPanel>
-                      <TabPanel>
-                        <HotelToAirport/>
-                      </TabPanel>
-                      <TabPanel>
-                        <HotelToHotel/>
-                      </TabPanel>
-                      <TabPanel>
-                        <AirportToAirport/>
-                      </TabPanel>
-
-                    </Tabs>
+        {
+            /**
+             * Desktop View
+             */
+          }
+          <MediaQuery query="(min-device-width: 1224px)">
+            <Container fluid style={{ lineHeight: '35px' }}>
+              <Row>
+                <Col md={9} push={{ md: 3 }}>
+                  <div>
+                    <Header/>
+                    <SectionOne />
+                    <SectionTwo />
+                    <SectionThree />
+                    <SectionFour />
+                    <SectionFive />
+                    <SectionSix />
+                    <Footer />
                   </div>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+                </Col>
+                <Col md={3} pull={{ md: 9 }}>
+                  <BookingForm />
+                </Col>
+              </Row>
+            </Container>
+          </MediaQuery>
+          {
+            /**
+             * Mobile View
+             */
+          }
+          <MediaQuery query="(max-device-width: 800px)">
+            <div>
+              <Header />
+              <SectionOne />
+              <SectionTwo />
+              <SectionThree />
+              <SectionFour />
+              <SectionFive />
+              <SectionSix />
+              <Footer />
+            </div>
+          </MediaQuery>
         </div>
       </div>
     );
