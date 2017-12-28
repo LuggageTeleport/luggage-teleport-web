@@ -149,7 +149,8 @@ class Register extends Component {
                                 <i className="registerNotes">
                                     Password <strong>must</strong> contain Lowercase, Uppercase,
                                     and Special Character
-                                    and minimum length of Password is 8 character
+                                    and minimum length of Password is 8 character</i>
+                            </p>
                         </div>
                         {
                             !isLoading ?
