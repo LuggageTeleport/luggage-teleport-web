@@ -2,6 +2,7 @@
   "name": "lugg-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://myusername.github.io/my-app",
   "dependencies": {
     "amazon-cognito-identity-js": "^1.28.0",
     "apollo-cache-inmemory": "^1.1.4",
@@ -15,6 +16,7 @@
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
     "extract-text-webpack-plugin": "^3.0.2",
+    "gh-pages": "^1.1.0",
     "graphql": "^0.11.7",
     "graphql-tag": "^2.6.0",
     "history": "^4.7.2",
@@ -32,6 +34,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "react-tabs": "^2.1.1",
+    "react-telephone-input": "^4.3.4",
     "react-tooltip": "^3.4.0",
     "redux": "^3.7.2",
     "webpack": "^3.9.1",
@@ -43,6 +46,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"

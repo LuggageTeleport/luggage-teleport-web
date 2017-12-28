@@ -105,7 +105,7 @@ class Register extends Component {
                                 className="form-control"
                                 type="text"
                                 onChange={e => this.setState({ name: e.target.value })}
-                                placeholder="Your Fullname" required />
+                                placeholder="Full Name" required />
                         </div>
 
                         <div className="form-group">
@@ -113,7 +113,7 @@ class Register extends Component {
                                 className="form-control"
                                 type="email"
                                 onChange={e => this.setState({ email: e.target.value })}
-                                placeholder="Your Active Email"
+                                placeholder="Email"
                                 style={{ marginTop: '10px' }} required />
                         </div>
 
@@ -123,7 +123,7 @@ class Register extends Component {
                                 type="text"
                                 onChange={e => this.setState({ phone_number: e.target.value })}
                                 style={{ marginTop: '10px' }}
-                                placeholder="Your Phone Number" required />
+                                placeholder="Phone Number" required />
                         </div>
 
                         <div className="form-group">
@@ -131,7 +131,7 @@ class Register extends Component {
                                 className="form-control"
                                 type="password"
                                 onChange={e => this.setState({ password: e.target.value })}
-                                placeholder="Your Password"
+                                placeholder="Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
 
@@ -140,17 +140,16 @@ class Register extends Component {
                                 className="form-control"
                                 type="password"
                                 onChange={e => this.setState({ confirmPassword: e.target.value })}
-                                placeholder="Confirm your Password"
+                                placeholder="Confirm Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
+
                         <div>
                             <p><strong>Notes! </strong>
                                 <i className="registerNotes">
                                     Password <strong>must</strong> contain Lowercase, Uppercase,
                                     and Special Character
                                     and minimum length of Password is 8 character
-                                </i>
-                            </p>
                         </div>
                         {
                             !isLoading ?

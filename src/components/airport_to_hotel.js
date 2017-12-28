@@ -103,7 +103,11 @@ class AirportToHotel extends Component {
             },
             {
                 id: 2,
-                name: "Soekarno-Hatta Intl Airport"
+                name: "Oakland Intl Airport"
+            },
+            {
+                id: 3,
+                name: "McCarran Intl Airport"
             }
         ]
         return AirportData;
@@ -113,11 +117,243 @@ class AirportToHotel extends Component {
         const AirlineData = [
             {
                 id: 1,
-                name: "Garuda"
+                name: "Aer Lingus"
             },
             {
                 id: 2,
+                name: "Aeromexico"
+            },
+            {
+                id: 3,
+                name: "Alaska Airlines"
+            },
+            {
+                id: 4,
+                name: "Allegiant Air"
+            },
+            {
+                id: 5,
+                name: "Air Berlin"
+            },
+            {
+                id: 6,
+                name: "Air Canada"
+            },
+            {
+                id: 7,
+                name: "Air France"
+            },
+            {
+                id: 8,
+                name: "Air Mexico"
+            },
+            {
+                id: 9,
                 name: "American Airlines"
+            },
+            {
+                id: 10,
+                name: "ANAs"
+            },
+            {
+                id: 11,
+                name: "Austrian Airlines"
+            },
+            {
+                id: 12,
+                name: "Bangkok"
+            },
+            {
+                id: 13,
+                name: "British Airlines"
+            },
+            {
+                id: 14,
+                name: "Cathay Pacific"
+            },
+            {
+                id: 15,
+                name: "China Airlines"
+            },
+            {
+                id: 16,
+                name: "China Eastern Airlines"
+            },
+            {
+                id: 17,
+                name: "China Southern Airlines"
+            },
+            {
+                id: 18,
+                name: "Delta Airlines"
+            },
+            {
+                id: 19,
+                name: "easyJet"
+            },
+            {
+                id: 20,
+                name: "Egyptair"
+            },
+            {
+                id: 21,
+                name: "Emirites"
+            },
+            {
+                id: 22,
+                name: "Etihads Airlines"
+            },
+            {
+                id: 23,
+                name: "Eurowings"
+            },
+            {
+                id: 24,
+                name: "FinnAir"
+            },
+            {
+                id: 25,
+                name: "Frontier Airlines"
+            },
+            {
+                id: 26,
+                name: "Garuda Indonesia"
+            },
+            {
+                id: 27,
+                name: "Hawaiian Airlines"
+            },
+            {
+                id: 28,
+                name: "Hong Kong Airlines"
+            },
+            {
+                id: 29,
+                name: "Iberia"
+            },
+            {
+                id: 30,
+                name: "Icelandair"
+            },
+            {
+                id: 31,
+                name: "Indigo"
+            },
+            {
+                id: 32,
+                name: "Japan Airlines"
+            },
+            {
+                id: 33,
+                name: "jetBlue"
+            },
+            {
+                id: 34,
+                name: "Jetstar Asia"
+            },
+            {
+                id: 35,
+                name: "KLM"
+            },
+                {
+                id: 36,
+                name: "LAN Airlines"
+            },
+            {
+                id: 37,
+                name: "Lufthansa"
+            },
+            {
+                id: 38,
+                name: "Malaysia Airlines"
+            },
+            {
+                id: 39,
+                name: "Norwegian Airlines"
+            },
+            {
+                id: 40,
+                name: "Royal Jordanian"
+            },
+            {
+                id: 41,
+                name: "RyanAir"
+            },
+            {
+                id: 42,
+                name: "SAS Scandinavian"
+            },
+            {
+                id: 43,
+                name: "Scoot"
+            },
+            {
+                id: 44,
+                name: "SilkAir"
+            },
+            {
+                id: 45,
+                name: "S7 Airlines"
+            },
+            {
+                id: 46,
+                name: "SkyWest Airlines"
+            },
+            {
+                id: 47,
+                name: "South African Airlines"
+            },
+            {
+                id: 48,
+                name: "Southwest Airlines"
+            },
+            {
+                id: 49,
+                name: "Swiss International Airlines"
+            },
+            {
+                id: 50,
+                name: "Spirit Airlines"
+            },
+            {
+                id: 51,
+                name: "Turkish Airlines"
+            },
+            {
+                id: 52,
+                name: "United Airlines"
+            },
+            {
+                id: 53,
+                name: "Virgin America"
+            },
+            {
+                id: 54,
+                name: "Virgin Atlantic"
+            },
+            {
+                id: 55,
+                name: "Virgin Australia"
+            },
+            {
+                id: 56,
+                name: "Qantas Airlines"
+            },
+            {
+                id: 57,
+                name: "Qatar Airlines"
+            },
+            {
+                id: 58,
+                name: "Vivaaerobus"
+            },
+            {
+                id: 59,
+                name: "Volaris"
+            },
+            {
+                id: 60,
+                name: "WestJet"
             }
         ]
         return AirlineData;
@@ -131,7 +367,7 @@ class AirportToHotel extends Component {
             },
             {
                 id: 2,
-                name: "Ritz-Carlton Hotel"
+                name: "san Francisco Ritz-Carlton Hotel"
             }
         ]
 
