@@ -380,23 +380,8 @@ class AirportToHotel extends Component {
     SubmitHotelToAirportData() {
         const { dispatch } = this.props
         let datas = [];
-        const {
-            Email,
-            airline,
-            airport,
-            hotel,
-            PhoneNumber,
-            FlightNumber,
-            ArrivalTime,
-            PickupDate,
-            DropoffDate,
-            HotelBookingRef,
-            NameUnderHotelRsv } = this.state;
-          datas.push(this.state);
-        // this.setState({email: this.props.user.email})
-        console.log('datas', datas)
+        datas.push(this.state);
         dispatch(PassBookData(datas));
-        // console.log(this.state)
     }
 
     componentDidMount() {
