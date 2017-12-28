@@ -143,14 +143,13 @@ class Register extends Component {
                                 placeholder="Confirm Password"
                                 style={{ marginTop: '10px' }} required />
                         </div>
+
                         <div>
-                            <p><strong>*</strong>
+                            <p><strong>Notes! </strong>
                                 <i className="registerNotes">
-                                    Password must contain at least one lowercase, uppercase, number,
-                                    special character (*&^$) 
-                                    and be at least 8 characters long.
-                                </i>
-                            <strong>*</strong>
+                                    Password <strong>must</strong> contain Lowercase, Uppercase,
+                                    and Special Character
+                                    and minimum length of Password is 8 character</i>
                             </p>
                         </div>
                         {
