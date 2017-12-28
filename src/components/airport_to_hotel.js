@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getCurrentUser } from '../aws_cognito';
 import { FormGroup, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { PassBookData } from '../actions'
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -85,13 +86,15 @@ class AirportToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <button
-                className="btn btn-lg"
-                onClick={() => this.SubmitHotelToAirportData()}
-                type="button"
-                style={{ backgroundColor: 'yellow', width: '260px' }}>
-                Next
-        </button>
+            <Link to="/bookingreview">
+                <button
+                    className="btn btn-lg"
+                    onClick={() => this.SubmitHotelToAirportData()}
+                    type="button"
+                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    Next
+            </button>
+            </Link>
         )
     }
 
@@ -255,7 +258,7 @@ class AirportToHotel extends Component {
                 id: 35,
                 name: "KLM"
             },
-                {
+            {
                 id: 36,
                 name: "LAN Airlines"
             },
@@ -375,20 +378,25 @@ class AirportToHotel extends Component {
     }
 
     SubmitHotelToAirportData() {
-        // const { email } = this.props.user.user;
+        const { dispatch } = this.props
+        let datas = [];
         const {
             Email,
             airline,
             airport,
             hotel,
+            PhoneNumber,
             FlightNumber,
             ArrivalTime,
             PickupDate,
             DropoffDate,
             HotelBookingRef,
             NameUnderHotelRsv } = this.state;
+          datas.push(this.state);
         // this.setState({email: this.props.user.email})
-        console.log(this.state)
+        console.log('datas', datas)
+        dispatch(PassBookData(datas));
+        // console.log(this.state)
     }
 
     componentDidMount() {
