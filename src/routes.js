@@ -5,6 +5,7 @@ import Login from './components/login';
 import Register from './components/register';
 import VerifyAccount from './components/verify_account';
 import BookingForm from './components/booking_form';
+import BookingReview from './components/booking_review';
 
 
 class Routes extends Component {
@@ -18,6 +19,7 @@ class Routes extends Component {
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
                         <Route path="/booking" component={BookingForm} />
+                        <Route path="/bookingreview" component={BookingReview} />
                         <Route path="/verify" component={VerifyAccount} />
                     </div>
                 </Router>
