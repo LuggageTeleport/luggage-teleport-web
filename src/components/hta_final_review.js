@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PassBookData } from '../actions';
 import '../App.css';
+import * as moment from 'moment';
 
 class HTAFinalReview extends Component {
 
@@ -29,14 +30,14 @@ class HTAFinalReview extends Component {
         const { PaymentMethod } = this.props.payment;
         return (
             <div>
-                <div class="containerProgressBar" style={{ marginTop: '1em' }}>
-                    <ul class="progressbar">
-                        <li class="active">Booking</li>
-                        <li class="active">Booking Review</li>
-                        <li class="active">Payment Method</li>
+                <div className="containerProgressBar" style={{ marginTop: '1em' }}>
+                    <ul className="progressbar">
+                        <li className="active">Booking</li>
+                        <li className="active">Booking Review</li>
+                        <li className="active">Payment Method</li>
                         <li>Booking/Payment Review &amp; Submit</li>
                     </ul>
-                    <div style={{ backgroundColor: '#cdd8d9', padding: '10px' }}>
+                    <div className="receipt">
                         <h3>Contact Info</h3>
                         <p>Email = {Email}</p>
                         <p>Phone Number = {PhoneNumber}</p>
@@ -46,21 +47,21 @@ class HTAFinalReview extends Component {
                         <p>Hotel for Pickup = {Hotel}</p>
                         <p>Hotel Booking Reference = {HotelBookingRef}</p>
                         <p>Name under Hotel Reservation = {NameUnderHotelRsv}</p>
-                        <p>Pick up Date &amp; Time = {PickupDatetime}</p>
+                        <p>Pick up Date &amp; Time = {moment(PickupDatetime).format('Do MMMM YYYY | hh:mm a')}</p>
                         <hr />
 
                         <p>Airport for Dropoff = {Airport}</p>
                         <p>Airline = {Airline}</p>
                         <p>Flight Number = {FlightNumber}</p>
-                        <p>Departure Time = {DepartureTime}</p>
+                        <p>Departure Time = {moment(DepartureTime, ["HH:mm"]).format("hh:mm a")}</p>
                         <hr />
                         <h3>Payment Method</h3>
                         with {PaymentMethod}
                     </div>
 
                     <div align="center">
-                        <button type="button" class="btn btn-primary" style={{ marginRight: '3px' }} onClick={this.Submit}>Submit Data</button>
-                        <button type="button" class="btn btn-danger" onClick={this.backToPayment}>Back</button>
+                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }} onClick={this.backToPayment}>Back</button>
+                        <button type="button" class="btn btn-primary btn-lg" onClick={this.Submit}>Submit Data</button>
                     </div>
                 </div>
             </div>
