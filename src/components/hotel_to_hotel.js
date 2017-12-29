@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getCurrentUser } from '../aws_cognito';
 import { FormGroup, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { PassBookData } from '../actions';
 
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import MdHotel from 'react-icons/lib/md/hotel';
@@ -28,7 +29,8 @@ class HotelToHotel extends Component {
             HotelDropoffBookingRef: '',
             RsvpNameHotelDropoff: '',
             OvernightStorage: false,
-            HotelDropoffDate: ''
+            HotelDropoffDate: '',
+            BookingType: 'HTH'
         }
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -82,29 +84,22 @@ class HotelToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <button
-                className="btn btn-lg"
-                onClick={() => this.SubmitHotelToHotelData()}
-                type="button"
-                style={{ backgroundColor: 'yellow', width: '260px' }}>
-                Next
-        </button>
+            <Link to="/hthreview">
+                <button
+                    className="btn btn-lg"
+                    onClick={() => this.SubmitHotelToHotelData()}
+                    type="button"
+                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    Next
+            </button>
+            </Link>
         )
     }
 
     SubmitHotelToHotelData() {
-        const {
-            HotelPickup,
-            HotelPickupBookingRef,
-            RsvpNameHotelPickup,
-            HotelPickupDate,
-            HotelDropoff,
-            HotelDropoffBookingRef,
-            RsvpNameHotelDropoff,
-            OvernightStorage,
-            HotelDropoffDate } = this.state;
-
-        console.log(this.state);
+        let datas = [];
+        datas.push(this.state);
+        this.props.PassBookData(datas);
     }
 
     componentDidMount() {
@@ -131,8 +126,8 @@ class HotelToHotel extends Component {
                                             style={{ height: '35px', width: '260px' }}
                                             onChange={event => this.setState({ HotelPickup: event.target.value })}>
                                             <option value="" selected disabled>Hotel for Pick up</option>
-                                            <option value="shantika">Shantika Hotel Jakarta</option>
-                                            <option value="ritzcarlton">Ritz-Carlton Hotel</option>
+                                            <option value="Shantika Hotel Jakarta">Shantika Hotel Jakarta</option>
+                                            <option value="Ritz-Carlton Hotel">Ritz-Carlton Hotel</option>
                                         </select>
                                     </InputGroup>
                                 </FormGroup>
@@ -188,8 +183,8 @@ class HotelToHotel extends Component {
                                             style={{ height: '35px', width: '260px' }}
                                             onChange={event => this.setState({ HotelDropoff: event.target.value })}>
                                             <option value="" selected disabled>Hotel for Drop off</option>
-                                            <option value="shantika">Shantika Hotel Jakarta</option>
-                                            <option value="ritzcarlton">Ritz-Carlton Hotel</option>
+                                            <option value="Shantika Hotel Jakarta">Shantika Hotel Jakarta</option>
+                                            <option value="Ritz-Carlton Hotel">Ritz-Carlton Hotel</option>
                                         </select>
                                     </InputGroup>
                                 </FormGroup>
@@ -262,4 +257,4 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, null)(HotelToHotel);
+export default connect(mapsStateToProps, { PassBookData })(HotelToHotel);

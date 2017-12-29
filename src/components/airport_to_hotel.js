@@ -33,7 +33,8 @@ class AirportToHotel extends Component {
             HotelBookingRef: '',
             NameUnderHotelRsv: '',
             OvernightStorage: false,
-            showModal: false
+            showModal: false,
+            BookingType: 'ATH'
         }
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -86,7 +87,7 @@ class AirportToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <Link to="/bookingreview">
+            <Link to="/athreview">
                 <button
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToAirportData()}
@@ -378,10 +379,9 @@ class AirportToHotel extends Component {
     }
 
     SubmitHotelToAirportData() {
-        const { dispatch } = this.props
         let datas = [];
         datas.push(this.state);
-        dispatch(PassBookData(datas));
+        this.props.PassBookData(datas);
     }
 
     componentDidMount() {
@@ -415,7 +415,7 @@ class AirportToHotel extends Component {
                                             <option value="" selected disabled>Choose Airport for pickup</option>
                                             {
                                                 this.GetAirportData().map((airport) => {
-                                                    return <option key={airport.id} value={airport.id}>{airport.name}</option>
+                                                    return <option key={airport.id} value={airport.name}>{airport.name}</option>
                                                 })
                                             }
                                         </select>
@@ -431,7 +431,7 @@ class AirportToHotel extends Component {
                                             <option value="" selected disabled>Airline</option>
                                             {
                                                 this.GetAirlineData().map((airline) => {
-                                                    return <option key={airline.id} value={airline.id}>{airline.name}</option>
+                                                    return <option key={airline.id} value={airline.name}>{airline.name}</option>
                                                 })
                                             }
                                         </select>
@@ -493,7 +493,7 @@ class AirportToHotel extends Component {
                                             <option value="" selected disabled>Hotel for Drop off</option>
                                             {
                                                 this.GetHotelData().map((hotel) => {
-                                                    return <option key={hotel.id} value={hotel.id}>{hotel.name}</option>
+                                                    return <option key={hotel.id} value={hotel.name}>{hotel.name}</option>
                                                 })
                                             }
                                         </select>
@@ -568,4 +568,4 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, null)(AirportToHotel);
+export default connect(mapsStateToProps, {PassBookData})(AirportToHotel);
