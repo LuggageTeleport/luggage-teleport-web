@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { getCurrentUser } from '../aws_cognito';
 import { FormGroup, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { PassBookData } from '../actions';
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -28,7 +29,8 @@ class AirportToAirport extends Component {
             AirportDropoff: '',
             AirlineDropoff: '',
             DropoffFlightNumber: '',
-            DepartureTime: ''
+            DepartureTime: '',
+            BookingType: 'ATA'
         }
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -81,29 +83,22 @@ class AirportToAirport extends Component {
 
     buttonSubmit() {
         return (
-            <button
-                className="btn btn-lg"
-                onClick={() => this.SubmitAirportToAirportData()}
-                type="button"
-                style={{ backgroundColor: 'yellow', width: '260px' }}>
-                Next
-        </button>
+            <Link to="/atareview">
+                <button
+                    className="btn btn-lg"
+                    onClick={() => this.SubmitAirportToAirportData()}
+                    type="button"
+                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    Next
+                 </button>
+            </Link>
         )
     }
 
     SubmitAirportToAirportData() {
-        const {
-            AirportPickup,
-            AirlinePickup,
-            PickupFlightNumber,
-            PickupDate,
-            ArrivalTime,
-            AirportDropoff,
-            AirlineDropoff,
-            DropoffFlightNumber,
-            DepartureTime } = this.state;
-
-        console.log(this.state);
+        let datas = [];
+        datas.push(this.state);
+        this.props.PassBookData(datas);
     }
 
     componentDidMount() {
@@ -131,8 +126,8 @@ class AirportToAirport extends Component {
                                             style={{ height: '35px', width: '260px' }}
                                             onChange={event => this.setState({ AirportPickup: event.target.value })}>
                                             <option value="" selected disabled>Choose Airport for pickup</option>
-                                            <option value="sfo">San Fransisco intl Airport</option>
-                                            <option value="soetta">Soekarno-Hatta intl Airport</option>
+                                            <option value="San Fransisco intl Airport">San Fransisco intl Airport</option>
+                                            <option value="Soekarno-Hatta intl Airpor">Soekarno-Hatta intl Airport</option>
                                         </select>
                                     </InputGroup>
                                 </FormGroup>
@@ -144,8 +139,8 @@ class AirportToAirport extends Component {
                                             style={{ height: '35px', width: '260px' }}
                                             onChange={event => this.setState({ AirlinePickup: event.target.value })}>
                                             <option value="" selected disabled>Airline</option>
-                                            <option value="aa">American Airlines</option>
-                                            <option value="garuda">Garuda Airlines</option>
+                                            <option value="American Airlines">American Airlines</option>
+                                            <option value="Garuda Airlines">Garuda Airlines</option>
                                         </select>
                                     </InputGroup>
                                 </FormGroup>
@@ -203,8 +198,8 @@ class AirportToAirport extends Component {
                                             style={{ height: '35px', width: '260px' }}
                                             onChange={event => this.setState({ AirportDropoff: event.target.value })}>
                                             <option value="" selected disabled>Choose Airport for Drop off</option>
-                                            <option value="sfo">San Fransisco intl Airport</option>
-                                            <option value="soetta">Soekarno-Hatta intl Airport</option>
+                                            <option value="San Fransisco intl Airport">San Fransisco intl Airport</option>
+                                            <option value="Soekarno-Hatta intl Airport">Soekarno-Hatta intl Airport</option>
                                         </select>
                                     </InputGroup>
                                 </FormGroup>
@@ -216,8 +211,8 @@ class AirportToAirport extends Component {
                                             style={{ height: '35px', width: '260px' }}
                                             onChange={event => this.setState({ AirlineDropoff: event.target.value })}>
                                             <option value="" selected disabled>Airline</option>
-                                            <option value="aa">American Airlines</option>
-                                            <option value="garuda">Garuda Airlines</option>
+                                            <option value="American Airlines">American Airlines</option>
+                                            <option value="Garuda Airlines">Garuda Airlines</option>
                                         </select>
                                     </InputGroup>
                                 </FormGroup>
@@ -272,5 +267,5 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, null)(AirportToAirport);
+export default connect(mapsStateToProps, { PassBookData })(AirportToAirport);
 
