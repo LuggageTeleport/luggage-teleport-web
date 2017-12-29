@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PassBookData } from '../actions';
 import '../App.css';
+import * as moment from 'moment';
 
 class HTHReview extends Component {
 
@@ -29,14 +30,14 @@ class HTHReview extends Component {
             HotelPickupDate, OvernightStorage, PhoneNumber, RsvpNameHotelDropoff, RsvpNameHotelPickup } = this.props.BookData[0];
         return (
             <div>
-                <div class="containerProgressBar" style={{ marginTop: '1em' }}>
-                    <ul class="progressbar">
-                        <li class="active">Booking</li>
+                <div className="containerProgressBar" style={{ marginTop: '1em' }}>
+                    <ul className="progressbar">
+                        <li className="active">Booking</li>
                         <li>Booking Review</li>
                         <li>Payment Method</li>
                         <li>Booking/Payment Review &amp; Submit</li>
                     </ul>
-                    <div style={{ backgroundColor: '#cdd8d9', padding: '10px' }}>
+                    <div className="receipt">
                         <h3>Contact Info</h3>
                         <p>Email = {Email}</p>
                         <p>Phone Number = {PhoneNumber}</p>
@@ -46,7 +47,7 @@ class HTHReview extends Component {
                         <p>Hotel for Pickup = {HotelPickup}</p>
                         <p>Hotel Booking Reference = {HotelPickupBookingRef}</p>
                         <p>Name under Hotel Reservation = {RsvpNameHotelPickup}</p>
-                        <p>Pick up Date = {HotelPickupDate}</p>
+                        <p>Pick up Date = {moment(HotelPickupDate).format('Do MMMM YYYY')}</p>
                         <hr />
 
                         <p>Hotel for Dropoff = {HotelDropoff}</p>
@@ -58,11 +59,11 @@ class HTHReview extends Component {
                                 :
                                 <p>Overnight Storage = No</p>
                         }
-                        <p>Drop off Date = {HotelDropoffDate}</p>
+                        <p>Drop off Date = {moment(HotelDropoffDate).format('Do MMMM YYYY')}</p>
                     </div>
                     <div align="center">
-                        <button type="button" class="btn btn-primary" style={{ marginRight: '3px' }} onClick={this.toPaymentMethod}>Next</button>
-                        <button type="button" class="btn btn-danger" onClick={this.backToMainMenu}>Back</button>
+                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }} onClick={this.backToMainMenu}>Back</button>
+                        <button type="button" class="btn btn-primary btn-lg" onClick={this.toPaymentMethod}>Next</button>
                     </div>
                 </div>
 
