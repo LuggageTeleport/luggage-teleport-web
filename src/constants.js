@@ -1,1 +1,3 @@
 export const SIGNED_IN = 'SIGNED_IN';
+export const PASSING_BOOK_DATA = 'PASSING_BOOK_DATA';
+export const GET_PAYMENT_METHOD = 'GET_PAYMENT_METHOD';
