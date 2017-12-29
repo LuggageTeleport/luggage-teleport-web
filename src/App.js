@@ -47,7 +47,7 @@ class App extends Component {
              * Desktop View
              */
           }
-          <MediaQuery query="(min-device-width: 1500px)">
+          <MediaQuery query="(min-device-width: 800px)">
             <Container fluid style={{ lineHeight: '35px' }}>
               <Row>
                 <Col md={9} push={{ md: 3 }}>
@@ -73,7 +73,7 @@ class App extends Component {
              * Mobile View
              */
           }
-          <MediaQuery query="(max-device-width: 1500px)">
+          <MediaQuery query="(max-device-width: 800px)">
             <div>
               <Header />
               <SectionOne />

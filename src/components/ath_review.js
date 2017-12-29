@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PassBookData } from '../actions';
 import '../App.css';
+import * as moment from 'moment';
 
 
 class ATHReview extends Component {
@@ -26,17 +27,18 @@ class ATHReview extends Component {
     render() {
         console.log('props booking review', this.props.BookData[0])
         const { Airline, Airport, ArrivalTime, DropoffDate, Email, FlightNumber, Hotel, HotelBookingRef,
-            NameUnderHotelRsv, OvernightStorage, PhoneNumber, PickupDate } = this.props.BookData[0]
+            NameUnderHotelRsv, OvernightStorage, PhoneNumber, PickupDate } = this.props.BookData[0];
+            console.log(moment(ArrivalTime, ["HH:mm"]).format("hh:mm A"))
         return (
             <div>
-                <div class="containerProgressBar" style={{ marginTop: '1em' }}>
-                    <ul class="progressbar">
-                        <li class="active">Booking</li>
+                <div className="containerProgressBar" style={{ marginTop: '1em' }}>
+                    <ul className="progressbar">
+                        <li className="active">Booking</li>
                         <li>Booking Review</li>
                         <li>Payment Method</li>
                         <li>Booking/Payment Review &amp; Submit</li>
                     </ul>
-                    <div style={{ backgroundColor: '#cdd8d9', padding: '10px' }}>
+                    <div className="receipt">
                         <h3>Contact Info</h3>
                         <p>Email = {Email}</p>
                         <p>Phone Number = {PhoneNumber}</p>
@@ -46,8 +48,8 @@ class ATHReview extends Component {
                         <p>Aiport = {Airport}</p>
                         <p>Airline = {Airline}</p>
                         <p>Flight Number = {FlightNumber}</p>
-                        <p>Pick up Date = {PickupDate}</p>
-                        <p>Estimated Time of Arrival = {ArrivalTime}</p>
+                        <p>Pick up Date = {moment(PickupDate).format('Do MMMM YYYY')}</p>
+                        <p>Estimated Time of Arrival = {moment(ArrivalTime, ["HH:mm"]).format("hh:mm a")}</p>
                         <hr />
 
                         <p>Hotel Drop Off = {Hotel}</p>
@@ -59,11 +61,11 @@ class ATHReview extends Component {
                                 :
                                 <p>Overnight Storage = No</p>
                         }
-                        <p>Drop off Date = {DropoffDate}</p>
+                        <p>Drop off Date = {moment(DropoffDate).format('Do MMMM YYYY')}</p>
                     </div>
                     <div align="center">
-                        <button type="button" class="btn btn-primary" style={{ marginRight: '3px' }} onClick={this.toPaymentMethod}>Next</button>
-                        <button type="button" class="btn btn-danger" onClick={this.backToMainMenu}>Back</button>
+                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }}  onClick={this.backToMainMenu}>Back</button>
+                        <button type="button" class="btn btn-primary btn-lg" onClick={this.toPaymentMethod}>Next</button>
                     </div>
                 </div>
 

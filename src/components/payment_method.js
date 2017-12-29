@@ -72,22 +72,22 @@ class PaymentMethod extends Component {
     render() {
         console.log('payment method', this.props.BookData[0]);
         return (
-            <div align="center">
-                <div class="containerProgressBar" style={{ marginTop: '1em' }}>
-                    <ul class="progressbar">
-                        <li class="active">Booking</li>
-                        <li class="active">Booking Review</li>
+            <div>
+                <div className="containerProgressBar" style={{ marginTop: '1em' }}>
+                    <ul className="progressbar">
+                        <li className="active">Booking</li>
+                        <li className="active">Booking Review</li>
                         <li>Payment Method</li>
                         <li>Booking/Payment Review &amp; Submit</li>
                     </ul>
 
-                    <div style={{ backgroundColor: '#cdd8d9', padding: '10px' }}>
-                        <form>
+                    <div className="receipt">
+                        <form >
                             <FormGroup>
                                 <InputGroup>
                                     <select
                                         className="form-control"
-                                        style={{ height: '35px', width: '260px' }}
+                                        style={{ height: '35px', width: '260px', marginTop: '4em', marginLeft: '10em'}}
                                         onChange={event => this.setState({ PaymentMethod: event.target.value })}>
                                         <option value="" selected disabled>Choose Your Payment</option>
                                         {
@@ -101,8 +101,8 @@ class PaymentMethod extends Component {
                         </form>
                     </div>
                     <div align="center">
-                        <button type="button" class="btn btn-primary" style={{ marginRight: '3px' }} onClick={this.toFinalReview}>Next</button>
-                        <button type="button" class="btn btn-danger" onClick={this.backToReview}>Back</button>
+                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }} onClick={this.backToReview}>Back</button>
+                        <button type="button" class="btn btn-primary btn-lg" onClick={this.toFinalReview}>Next</button>
                     </div>
                 </div>
             </div>
