@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { getCurrentUser } from '../aws_cognito';
+import { FormGroup, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { PassBookData } from '../actions'
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -31,7 +33,8 @@ class AirportToHotel extends Component {
             HotelBookingRef: '',
             NameUnderHotelRsv: '',
             OvernightStorage: false,
-            showModal: false
+            showModal: false,
+            BookingType: 'ATH'
         }
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -84,13 +87,15 @@ class AirportToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <button
-                className="btn btn-lg"
-                onClick={() => this.SubmitHotelToAirportData()}
-                type="button"
-                style={{ backgroundColor: 'yellow', width: '260px' }}>
-                Next
-        </button>
+            <Link to="/athreview">
+                <button
+                    className="btn btn-lg"
+                    onClick={() => this.SubmitHotelToAirportData()}
+                    type="button"
+                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    Next
+            </button>
+            </Link>
         )
     }
 
@@ -254,7 +259,7 @@ class AirportToHotel extends Component {
                 id: 35,
                 name: "KLM"
             },
-                {
+            {
                 id: 36,
                 name: "LAN Airlines"
             },
@@ -374,20 +379,9 @@ class AirportToHotel extends Component {
     }
 
     SubmitHotelToAirportData() {
-        // const { email } = this.props.user.user;
-        const {
-            Email,
-            airline,
-            airport,
-            hotel,
-            FlightNumber,
-            ArrivalTime,
-            PickupDate,
-            DropoffDate,
-            HotelBookingRef,
-            NameUnderHotelRsv } = this.state;
-        // this.setState({email: this.props.user.email})
-        console.log(this.state)
+        let datas = [];
+        datas.push(this.state);
+        this.props.PassBookData(datas);
     }
 
     componentDidMount() {
@@ -395,7 +389,7 @@ class AirportToHotel extends Component {
         const { Email, PhoneNumber } = this.props.user;
         this.setState({
             Email,
-            PhoneNumber 
+            PhoneNumber
         })
     }
 
@@ -408,133 +402,157 @@ class AirportToHotel extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
-
-                            {/**
-                         * Airport Section
-                         */}
-                            <select
-                                className="form-control"
-                                style={{ height: '35px', width: '260px' }}
-                                onChange={event => this.setState({ Airport: event.target.value })}>
-                                <option value="" selected disabled>Choose Airport for pickup</option>
-                                {
-                                    this.GetAirportData().map((airport) => {
-                                        return <option key={airport.id} value={airport.id}>{airport.name}</option>
-                                    })
-                                }
-                            </select>
-                            <hr />
-                            <select
-                                className="form-control"
-                                style={{ height: '35px', width: '260px' }}
-                                onChange={event => this.setState({ Airline: event.target.value })}>
-                                <option value="" selected disabled>Airline</option>
-                                {
-                                    this.GetAirlineData().map((airline) => {
-                                        return <option key={airline.id} value={airline.id}>{airline.name}</option>
-                                    })
-                                }
-                            </select>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></span>
-                                <input
-                                    type="text"
-                                    onChange={event => this.setState({ FlightNumber: event.target.value })}
-                                    placeholder="Flight Number"
-                                    className="form-control"
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></span>
-                                <input
-                                    type={this.state.dateType}
-                                    className="form-control"
-                                    placeholder="Pick up Date"
-                                    onChange={event => this.setState({ PickupDate: event.target.value })}
-                                    onFocus={() => this.setState({ dateType: 'date' })}
-                                    onBlur={() => this.setState({ dateType: 'text' })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#00bfff' }} /></span>
-                                <input
-                                    type={this.state.timeType}
-                                    placeholder="Estimated Time of Arrival"
-                                    className="form-control"
-                                    onChange={event => this.setState({ ArrivalTime: event.target.value })}
-                                    onFocus={() => this.setState({ timeType: 'time' })}
-                                    onBlur={() => this.setState({ timeType: 'text' })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            {/**
+                            <form>
+                                {/**
+                                * Airport Section
+                                */}
+                                <FormGroup>
+                                    <InputGroup>
+                                        <select
+                                            className="form-control"
+                                            style={{ height: '35px', width: '260px' }}
+                                            onChange={event => this.setState({ Airport: event.target.value })}>
+                                            <option value="" selected disabled>Choose Airport for pickup</option>
+                                            {
+                                                this.GetAirportData().map((airport) => {
+                                                    return <option key={airport.id} value={airport.name}>{airport.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <select
+                                            className="form-control"
+                                            style={{ height: '35px', width: '260px' }}
+                                            onChange={event => this.setState({ Airline: event.target.value })}>
+                                            <option value="" selected disabled>Airline</option>
+                                            {
+                                                this.GetAirlineData().map((airline) => {
+                                                    return <option key={airline.id} value={airline.name}>{airline.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></InputGroup.Addon>
+                                        <input
+                                            type="text"
+                                            onChange={event => this.setState({ FlightNumber: event.target.value })}
+                                            placeholder="Flight Number"
+                                            className="form-control"
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></InputGroup.Addon>
+                                        <input
+                                            type={this.state.dateType}
+                                            className="form-control"
+                                            placeholder="Pick up Date"
+                                            onChange={event => this.setState({ PickupDate: event.target.value })}
+                                            onFocus={() => this.setState({ dateType: 'date' })}
+                                            onBlur={() => this.setState({ dateType: 'text' })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#00bfff' }} /></InputGroup.Addon>
+                                        <input
+                                            type={this.state.timeType}
+                                            placeholder="Estimated Time of Arrival"
+                                            className="form-control"
+                                            onChange={event => this.setState({ ArrivalTime: event.target.value })}
+                                            onFocus={() => this.setState({ timeType: 'time' })}
+                                            onBlur={() => this.setState({ timeType: 'text' })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                {/**
                              * Hotel Section
                              */}
-                            <select
-                                className="form-control"
-                                style={{ height: '35px', width: '260px' }}
-                                onChange={event => this.setState({ Hotel: event.target.value })}>
-                                <option value="" selected disabled>Hotel for Drop off</option>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <select
+                                            className="form-control"
+                                            style={{ height: '35px', width: '260px' }}
+                                            onChange={event => this.setState({ Hotel: event.target.value })}>
+                                            <option value="" selected disabled>Hotel for Drop off</option>
+                                            {
+                                                this.GetHotelData().map((hotel) => {
+                                                    return <option key={hotel.id} value={hotel.name}>{hotel.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></InputGroup.Addon>
+                                        <input
+                                            type='text'
+                                            onChange={event => this.setState({ HotelBookingRef: event.target.value })}
+                                            placeholder="Hotel Booking Reference"
+                                            className="form-control"
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></InputGroup.Addon>
+                                        <input
+                                            type='text'
+                                            placeholder="Name under Hotel Reservation"
+                                            className="form-control"
+                                            onChange={event => this.setState({ NameUnderHotelRsv: event.target.value })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <div>
+                                    Overnight Storage
+                                    <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
+                                    <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: false })} />No
+                                </div>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></InputGroup.Addon>
+                                        <input
+                                            type={this.state.dateType}
+                                            className="form-control"
+                                            placeholder="Drop off Date"
+                                            onChange={event => this.setState({ DropoffDate: event.target.value })}
+                                            onFocus={() => this.setState({ dateType: 'date' })}
+                                            onBlur={() => this.setState({ dateType: 'text' })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
                                 {
-                                    this.GetHotelData().map((hotel) => {
-                                        return <option key={hotel.id} value={hotel.id}>{hotel.name}</option>
-                                    })
+                                    !currentUser ?
+                                        this.PopupModal()
+                                        : this.buttonSubmit()
                                 }
-                            </select>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></span>
-                                <input
-                                    type='text'
-                                    onChange={event => this.setState({ HotelBookingRef: event.target.value })}
-                                    placeholder="Hotel Booking Reference"
-                                    className="form-control"
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></span>
-                                <input
-                                    type='text'
-                                    placeholder="Name under Hotel Reservation"
-                                    className="form-control"
-                                    onChange={event => this.setState({ NameUnderHotelRsv: event.target.value })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div>
-                                <label style={{ float: 'left', marginRight: 5 }}>Overnight Storage</label>
-                                <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
-                                <input type="radio" name="optradio" style={{ marginLeft: 5 }} onChange={e => this.setState({ OvernightStorage: false })} />No
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></span>
-                                <input
-                                    type={this.state.dateType}
-                                    className="form-control"
-                                    placeholder="Drop off Date"
-                                    onChange={event => this.setState({ DropoffDate: event.target.value })}
-                                    onFocus={() => this.setState({ dateType: 'date' })}
-                                    onBlur={() => this.setState({ dateType: 'text' })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            {
-                                !currentUser ?
-                                    this.PopupModal()
-                                    : this.buttonSubmit()
-                            }
-
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -550,4 +568,4 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, null)(AirportToHotel);
+export default connect(mapsStateToProps, {PassBookData})(AirportToHotel);
