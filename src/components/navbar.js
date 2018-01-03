@@ -8,21 +8,27 @@ import { slide as Menu } from 'react-burger-menu';
 import { Link } from 'react-router-dom';
 import '../App.css'
 import AWS from "aws-sdk";
+import { getCurrentUser, getUserToken } from '../aws_cognito';
 
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
+  }
 
+  componentDidUpdate() {
     const currentUser = getCurrentUser();
-    getUserToken(currentUser);
-    if (currentUser) {
+    const UserToken = getUserToken(currentUser);
+    // console.log('currentUser',currentUser)
+    if (!UserToken) {
+      // this.props.history.push('/')
+      console.log(false)
+    } else {
       const { dispatch } = this.props;
+      const { jwtToken } = currentUser.signInUserSession.idToken;
       const { email, phone_number } = currentUser.signInUserSession.idToken.payload;
       dispatch(LogUser(email, phone_number))
-      getUserToken(currentUser);
-    } else {
-      console.log(false);
+      localStorage.setItem('token', `"${jwtToken}"`)
     }
   }
 
@@ -65,7 +71,6 @@ class Navbar extends React.Component {
     this.props.history.push('/login')
   }
 
-
   render() {
     const currentUser = getCurrentUser();
     return (
@@ -79,12 +84,20 @@ class Navbar extends React.Component {
                     this.RenderLogoutButton()
                 }
               </a>
+              <a id="history" className="menu-item">
+                {
+                  !currentUser ? <div></div>
+                    :
+                    <Link to="/history">History</Link>
+                }
+              </a>
               <a id="home" className="menu-item" href="https://www.luggageteleport.com/"><Link to="/">Home</Link></a>
               <a id="about" className="menu-item" href="https://www.luggageteleport.com/about-us/">About Us</a>
               <a id="service" className="menu-item" href="https://www.luggageteleport.com/our-services/">Our Services</a>
               <a id="cnp" className="menu-item" href="https://www.luggageteleport.com/careers-partnerships/">Careers & Partnerships</a>
               <a id="contact" className="menu-item" href="https://www.luggageteleport.com/contact-us/">Contact Us </a>
               <a id="booking" className="menu-item SideBar" ><Link to="/booking">Booking</Link></a>
+
             </Menu>
           </div>
           <div className="container">
@@ -94,87 +107,11 @@ class Navbar extends React.Component {
                 alt
               />
             </a>
-
-            {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul className="navbar-nav" style={{ width: 800 }}>
-                <li
-                  id="menu-item-5"
-                  className="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-4 current_page_item menu-item-5"
-                >
-                  <a href="https://www.luggageteleport.com/">Home</a>
-                </li>
-                <li
-                  id="menu-item-8"
-                  className="menu-item menu-item-type-post_type menu-item-object-page menu-item-8"
-                >
-                  <a href="https://www.luggageteleport.com/about-us/">About Us</a>
-                </li>
-                <li
-                  id="menu-item-11"
-                  className="menu-item menu-item-type-post_type menu-item-object-page menu-item-11"
-                >
-                  <a href="https://www.luggageteleport.com/our-services/">
-                    Our Services
-                </a>
-                </li>
-                <li
-                  id="menu-item-14"
-                  className="menu-item menu-item-type-post_type menu-item-object-page menu-item-14"
-                >
-                  <a href="https://www.luggageteleport.com/careers-partnerships/">
-                    Careers & Partnerships
-                </a>
-                </li>
-                <li
-                  id="menu-item-17"
-                  className="menu-item menu-item-type-post_type menu-item-object-page menu-item-17"
-                >
-                  <a href="https://www.luggageteleport.com/contact-us/">
-                    Contact Us
-                </a>
-                </li>
-
-
-                <li
-                  id="menu-item-17"
-                  className="menu-item menu-item-type-post_type menu-item-object-page menu-item-17"
-                >
-                  {
-                    !currentUser ? this.RenderLoginButton() :
-                      this.RenderLogoutButton()
-                  }
-                </li>
-
-              </ul>
-            </div> */}
           </div>
         </nav>
       </div>
     );
   }
-}
-
-function getUserToken(currentUser) {
-  return new Promise((resolve, reject) => {
-    if (currentUser === null) {
-      return false;
-    }
-    currentUser.getSession(function (err, session) {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(session.getIdToken().getJwtToken());
-    });
-  });
-}
-
-function getCurrentUser() {
-  const userPool = new CognitoUserPool({
-    UserPoolId: USER_POOL_ID,
-    ClientId: CLIENT_ID
-  });
-  return userPool.getCurrentUser();
 }
 
 function mapsStateToProps(state) {
