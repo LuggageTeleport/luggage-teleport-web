@@ -83,7 +83,7 @@ class AirportToAirport extends Component {
 
     buttonSubmit() {
         return (
-            <Link to="/atareview">
+            <Link to="/atareview" style={{color: 'black'}}>
                 <button
                     className="btn btn-lg"
                     onClick={() => this.SubmitAirportToAirportData()}
