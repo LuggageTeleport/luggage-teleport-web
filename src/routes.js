@@ -5,6 +5,7 @@ import Login from './components/login';
 import Register from './components/register';
 import VerifyAccount from './components/verify_account';
 import BookingForm from './components/booking_form';
+import History from './components/history';
 import ATHReview from './components/ath_review';
 import HTAReview from './components/hta_review';
 import HTHReview from './components/hth_review';
@@ -27,6 +28,7 @@ class Routes extends Component {
                         <Route path="/login" component={Login} />
                         <Route path="/register" component={Register} />
                         <Route path="/booking" component={BookingForm} />
+                        <Route path="/history" component={History} />
                         <Route path="/athreview" component={ATHReview} />
                         <Route path="/htareview" component={HTAReview} />
                         <Route path="/hthreview" component={HTHReview} />
