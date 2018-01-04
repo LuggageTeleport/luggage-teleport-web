@@ -16,19 +16,21 @@ class Navbar extends React.Component {
     super(props);
   }
 
-  componentDidUpdate() {
+  componentWillMount() {
     const currentUser = getCurrentUser();
     const UserToken = getUserToken(currentUser);
-    // console.log('currentUser',currentUser)
-    if (!UserToken) {
-      // this.props.history.push('/')
-      console.log(false)
-    } else {
+    console.log('currentUser',currentUser)
+    if (currentUser) {
       const { dispatch } = this.props;
       const { jwtToken } = currentUser.signInUserSession.idToken;
       const { email, phone_number } = currentUser.signInUserSession.idToken.payload;
       dispatch(LogUser(email, phone_number))
       localStorage.setItem('token', `"${jwtToken}"`)
+      UserToken
+
+    } else {
+      // this.props.push.history('/')
+      console.log(false)
     }
   }
 
@@ -38,7 +40,8 @@ class Navbar extends React.Component {
     if (currentUser !== null) {
       currentUser.signOut();
     }
-
+    localStorage.removeItem('state')
+    localStorage.removeItem('token')
     if (AWS.config.credentials) {
       AWS.config.credentials.clearCachedId();
       AWS.config.credentials = new AWS.CognitoIdentityCredentials({});
