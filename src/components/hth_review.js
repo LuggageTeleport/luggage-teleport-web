@@ -39,27 +39,27 @@ class HTHReview extends Component {
                     </ul>
                     <div className="receipt">
                         <h3>Contact Info</h3>
-                        <p>Email = {Email}</p>
-                        <p>Phone Number = {PhoneNumber}</p>
+                        <p><strong>Email</strong> = {Email}</p>
+                        <p><strong>Phone Number</strong> = {PhoneNumber}</p>
                         <hr />
 
                         <h3>Your Booking</h3>
-                        <p>Hotel for Pickup = {HotelPickup}</p>
-                        <p>Hotel Booking Reference = {HotelPickupBookingRef}</p>
-                        <p>Name under Hotel Reservation = {RsvpNameHotelPickup}</p>
-                        <p>Pick up Date = {moment(HotelPickupDate).format('Do MMMM YYYY')}</p>
+                        <p><strong>Hotel for Pickup</strong> = {HotelPickup}</p>
+                        <p><strong>Hotel Booking Reference</strong> = {HotelPickupBookingRef}</p>
+                        <p><strong>Name under Hotel Reservation</strong> = {RsvpNameHotelPickup}</p>
+                        <p><strong>Pick up Date</strong> = {moment(HotelPickupDate).format('Do MMMM YYYY')}</p>
                         <hr />
 
-                        <p>Hotel for Dropoff = {HotelDropoff}</p>
-                        <p>Hotel Booking Reference = {HotelDropoffBookingRef}</p>
-                        <p>Name under Hotel Reservation = {RsvpNameHotelDropoff}</p>
+                        <p><strong>Hotel for Dropoff</strong> = {HotelDropoff}</p>
+                        <p><strong>Hotel Booking Reference</strong> = {HotelDropoffBookingRef}</p>
+                        <p><strong>Name under Hotel Reservation</strong> = {RsvpNameHotelDropoff}</p>
                         {
                             OvernightStorage === true ?
-                                <p>Overnight Storage = Yes</p>
+                                <p><strong>Overnight Storage</strong> = Yes</p>
                                 :
-                                <p>Overnight Storage = No</p>
+                                <p><strong>Overnight Storage</strong> = No</p>
                         }
-                        <p>Drop off Date = {moment(HotelDropoffDate).format('Do MMMM YYYY')}</p>
+                        <p><strong>Drop off Date</strong> = {moment(HotelDropoffDate).format('Do MMMM YYYY')}</p>
                     </div>
                     <div align="center">
                         <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }} onClick={this.backToMainMenu}>Back</button>
