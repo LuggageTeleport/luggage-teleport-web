@@ -84,7 +84,7 @@ class HotelToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <Link to="/hthreview">
+            <Link to="/hthreview" style={{color: 'black'}}>
                 <button
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToHotelData()}
@@ -215,12 +215,12 @@ class HotelToHotel extends Component {
                                     </InputGroup>
                                 </FormGroup>
                                 <hr />
-                                <div>
+                                {/* <div>
                                     Overnight Storage
                                     <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
                                     <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: false })} />No
                                 </div>
-                                <hr />
+                                <hr /> */}
                                 <FormGroup>
                                     <InputGroup>
                                         <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></InputGroup.Addon>

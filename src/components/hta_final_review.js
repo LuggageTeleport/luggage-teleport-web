@@ -19,13 +19,14 @@ class HTAFinalReview extends Component {
         this.props.history.push('/payment');
     }
     Submit = async => {
+        alert('Under Development :)');
         console.log('final submit', this.props.BookData[0])
     }
 
     render() {
         console.log('final review', this.props.BookData[0])
         console.log('final review', this.props.payment)
-        const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv, 
+        const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv,
             PhoneNumber, PickupDatetime } = this.props.BookData[0];
         const { PaymentMethod } = this.props.payment;
         return (
@@ -39,21 +40,21 @@ class HTAFinalReview extends Component {
                     </ul>
                     <div className="receipt">
                         <h3>Contact Info</h3>
-                        <p>Email = {Email}</p>
-                        <p>Phone Number = {PhoneNumber}</p>
+                        <p><strong>Email</strong> = {Email}</p>
+                        <p><strong>Phone Number</strong> = {PhoneNumber}</p>
                         <hr />
 
                         <h3>Your Booking</h3>
-                        <p>Hotel for Pickup = {Hotel}</p>
-                        <p>Hotel Booking Reference = {HotelBookingRef}</p>
-                        <p>Name under Hotel Reservation = {NameUnderHotelRsv}</p>
-                        <p>Pick up Date &amp; Time = {moment(PickupDatetime).format('Do MMMM YYYY | hh:mm a')}</p>
+                        <p><strong>Hotel for Pickup</strong> = {Hotel}</p>
+                        <p><strong>Hotel Booking Reference</strong> = {HotelBookingRef}</p>
+                        <p><strong>Name under Hotel Reservation</strong> = {NameUnderHotelRsv}</p>
+                        <p><strong>Pick up Date &amp; Time</strong> = {moment(PickupDatetime).format('Do MMMM YYYY | hh:mm a')}</p>
                         <hr />
 
-                        <p>Airport for Dropoff = {Airport}</p>
-                        <p>Airline = {Airline}</p>
-                        <p>Flight Number = {FlightNumber}</p>
-                        <p>Departure Time = {moment(DepartureTime, ["HH:mm"]).format("hh:mm a")}</p>
+                        <p><strong>Airport for Dropoff</strong> = {Airport}</p>
+                        <p><strong>Airline</strong> = {Airline}</p>
+                        <p><strong>Flight Number</strong> = {FlightNumber}</p>
+                        <p><strong>Departure Time</strong> = {moment(DepartureTime, ["HH:mm"]).format("hh:mm a")}</p>
                         <hr />
                         <h3>Payment Method</h3>
                         with {PaymentMethod}

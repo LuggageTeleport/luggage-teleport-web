@@ -85,13 +85,34 @@ class AirportToHotel extends Component {
         );
     }
 
+    ValidationForm(){
+        const {
+            Airport,
+            Airline,
+            Hotel,
+            FlightNumber,
+            ArrivalTime,
+            PickupDate,
+            DropoffDate,
+            HotelBookingRef,
+            NameUnderHotelRsv,
+        } =  this.state;
+
+        return (
+            Airport.length > 0 && Airline.length > 0 && Hotel.length > 0
+            && FlightNumber.length > 0 && ArrivalTime.length > 0 && PickupDate.length > 0
+            && HotelBookingRef.length > 0 && NameUnderHotelRsv.length > 0 && DropoffDate.length > 0
+        )
+    }
+
     buttonSubmit() {
         return (
-            <Link to="/athreview">
+            <Link to="/athreview" style={{color: 'black'}}>
                 <button
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToAirportData()}
                     type="button"
+                    disabled={!this.ValidationForm()}
                     style={{ backgroundColor: 'yellow', width: '260px' }}>
                     Next
             </button>
@@ -384,6 +405,8 @@ class AirportToHotel extends Component {
         this.props.PassBookData(datas);
     }
 
+
+
     componentDidMount() {
         console.log('this.props', this.props.user);
         const { Email, PhoneNumber } = this.props.user;
@@ -526,12 +549,12 @@ class AirportToHotel extends Component {
                                     </InputGroup>
                                 </FormGroup>
                                 <hr />
-                                <div>
+                                {/* <div>
                                     Overnight Storage
                                     <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
                                     <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: false })} />No
                                 </div>
-                                <hr />
+                                <hr /> */}
                                 <FormGroup>
                                     <InputGroup>
                                         <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></InputGroup.Addon>
@@ -568,4 +591,4 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, {PassBookData})(AirportToHotel);
+export default connect(mapsStateToProps, { PassBookData })(AirportToHotel);

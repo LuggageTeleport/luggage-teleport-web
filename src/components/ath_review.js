@@ -28,7 +28,6 @@ class ATHReview extends Component {
         console.log('props booking review', this.props.BookData[0])
         const { Airline, Airport, ArrivalTime, DropoffDate, Email, FlightNumber, Hotel, HotelBookingRef,
             NameUnderHotelRsv, OvernightStorage, PhoneNumber, PickupDate } = this.props.BookData[0];
-            console.log(moment(ArrivalTime, ["HH:mm"]).format("hh:mm A"))
         return (
             <div>
                 <div className="containerProgressBar" style={{ marginTop: '1em' }}>
@@ -40,31 +39,31 @@ class ATHReview extends Component {
                     </ul>
                     <div className="receipt">
                         <h3>Contact Info</h3>
-                        <p>Email = {Email}</p>
-                        <p>Phone Number = {PhoneNumber}</p>
-                        <hr />
-                        
-                        <h3>Your Booking</h3>
-                        <p>Aiport = {Airport}</p>
-                        <p>Airline = {Airline}</p>
-                        <p>Flight Number = {FlightNumber}</p>
-                        <p>Pick up Date = {moment(PickupDate).format('Do MMMM YYYY')}</p>
-                        <p>Estimated Time of Arrival = {moment(ArrivalTime, ["HH:mm"]).format("hh:mm a")}</p>
+                        <p><strong>Email</strong> = {Email}</p>
+                        <p><strong>Phone Number</strong> = {PhoneNumber}</p>
                         <hr />
 
-                        <p>Hotel Drop Off = {Hotel}</p>
-                        <p>Hotel Booking Reference = {HotelBookingRef}</p>
-                        <p>Name under Hotel Reservation = {NameUnderHotelRsv}</p>
-                        {
+                        <h3>Your Booking</h3>
+                        <p><strong>Aiport</strong> = {Airport}</p>
+                        <p><strong>Airline</strong> = {Airline}</p>
+                        <p><strong>Flight Number</strong> = {FlightNumber}</p>
+                        <p><strong>Pick up Date</strong> = {moment(PickupDate).format('Do MMMM YYYY')}</p>
+                        <p><strong>Estimated Time of Arrival</strong> = {moment(ArrivalTime, ["HH:mm"]).format("hh:mm a")}</p>
+                        <hr />
+
+                        <p><strong>Hotel Drop Off</strong> = {Hotel}</p>
+                        <p><strong>Hotel Booking Reference</strong> = {HotelBookingRef}</p>
+                        <p><strong>Name under Hotel Reservation</strong> = {NameUnderHotelRsv}</p>
+                        {/* {
                             OvernightStorage === true ?
-                                <p>Overnight Storage = Yes</p>
+                                <p><strong>Overnight Storage</strong> = Yes</p>
                                 :
-                                <p>Overnight Storage = No</p>
-                        }
-                        <p>Drop off Date = {moment(DropoffDate).format('Do MMMM YYYY')}</p>
+                                <p><strong>Overnight Storage</strong> = No</p>
+                        } */}
+                        <p><strong>Drop off Date</strong> = {moment(DropoffDate).format('Do MMMM YYYY')}</p>
                     </div>
                     <div align="center">
-                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }}  onClick={this.backToMainMenu}>Back</button>
+                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }} onClick={this.backToMainMenu}>Back</button>
                         <button type="button" class="btn btn-primary btn-lg" onClick={this.toPaymentMethod}>Next</button>
                     </div>
                 </div>
