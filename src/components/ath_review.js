@@ -54,12 +54,12 @@ class ATHReview extends Component {
                         <p><strong>Hotel Drop Off</strong> = {Hotel}</p>
                         <p><strong>Hotel Booking Reference</strong> = {HotelBookingRef}</p>
                         <p><strong>Name under Hotel Reservation</strong> = {NameUnderHotelRsv}</p>
-                        {
+                        {/* {
                             OvernightStorage === true ?
                                 <p><strong>Overnight Storage</strong> = Yes</p>
                                 :
                                 <p><strong>Overnight Storage</strong> = No</p>
-                        }
+                        } */}
                         <p><strong>Drop off Date</strong> = {moment(DropoffDate).format('Do MMMM YYYY')}</p>
                     </div>
                     <div align="center">
