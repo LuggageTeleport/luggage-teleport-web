@@ -29,7 +29,7 @@ class AirportToHotel extends Component {
             FlightNumber: '',
             ArrivalTime: '',
             PickupDate: '',
-            DropoffDate: null,
+            DropoffDate: '',
             HotelBookingRef: '',
             NameUnderHotelRsv: '',
             OvernightStorage: false,
@@ -101,15 +101,9 @@ class AirportToHotel extends Component {
         return (
             Airport.length > 0 && Airline.length > 0 && Hotel.length > 0
             && FlightNumber.length > 0 && ArrivalTime.length > 0 && PickupDate.length > 0
-            && HotelBookingRef.length > 0 && NameUnderHotelRsv.length > 0
+            && HotelBookingRef.length > 0 && NameUnderHotelRsv.length > 0 && DropoffDate.length > 0
         )
     }
-
-    // DropoffValidation(){
-    //     return(
-    //         this.state.OvernightStorage
-    //     )
-    // }
 
     buttonSubmit() {
         return (
@@ -555,12 +549,12 @@ class AirportToHotel extends Component {
                                     </InputGroup>
                                 </FormGroup>
                                 <hr />
-                                <div>
+                                {/* <div>
                                     Overnight Storage
                                     <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
                                     <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: false })} />No
                                 </div>
-                                <hr />
+                                <hr /> */}
                                 <FormGroup>
                                     <InputGroup>
                                         <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></InputGroup.Addon>
@@ -572,7 +566,6 @@ class AirportToHotel extends Component {
                                             onFocus={() => this.setState({ dateType: 'date' })}
                                             onBlur={() => this.setState({ dateType: 'text' })}
                                             style={{ width: '220px' }}
-                                            disabled={!this.state.OvernightStorage}
                                         />
                                     </InputGroup>
                                 </FormGroup>
