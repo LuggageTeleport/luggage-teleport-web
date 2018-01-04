@@ -84,7 +84,7 @@ class HotelToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <Link to="/hthreview">
+            <Link to="/hthreview" style={{color: 'black'}}>
                 <button
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToHotelData()}

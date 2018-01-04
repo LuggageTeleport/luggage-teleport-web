@@ -87,7 +87,7 @@ class AirportToHotel extends Component {
 
     buttonSubmit() {
         return (
-            <Link to="/athreview">
+            <Link to="/athreview" style={{color: 'black'}}>
                 <button
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToAirportData()}
@@ -568,4 +568,4 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, {PassBookData})(AirportToHotel);
+export default connect(mapsStateToProps, { PassBookData })(AirportToHotel);
