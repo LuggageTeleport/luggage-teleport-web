@@ -5,9 +5,8 @@ import '../App.css';
 import * as moment from 'moment';
 import axios from 'axios';
 
+
 class ATHFinalReview extends Component {
-
-
     constructor(props) {
         super(props);
 
@@ -29,6 +28,7 @@ class ATHFinalReview extends Component {
         const { Airline, Airport, ArrivalTime, DropoffDate, Email, FlightNumber, Hotel, HotelBookingRef,
             NameUnderHotelRsv, OvernightStorage, PhoneNumber, PickupDate } = this.props.BookData[0]
         console.log('final submit', this.props.BookData[0])
+
         let data = JSON.stringify({
             flightNumber: FlightNumber,
             status: 'Awaiting Payment',
@@ -36,7 +36,7 @@ class ATHFinalReview extends Component {
             airport: Airport,
             hotel: Hotel,
             pickupDate: PickupDate,
-            overnight: OvernightStorage,
+            // overnight: OvernightStorage,
             airline: Airline,
             estimatedArrival: ArrivalTime,
             type: 'Airport to Hotel',
@@ -97,12 +97,12 @@ class ATHFinalReview extends Component {
                         <p><strong>Hotel Drop Off</strong> = {Hotel}</p>
                         <p><strong>Hotel Booking Reference</strong> = {HotelBookingRef}</p>
                         <p><strong>Name under Hotel Reservation</strong> = {NameUnderHotelRsv}</p>
-                        {
+                        {/* {
                             OvernightStorage === true ?
                                 <p><strong>Overnight Storage</strong> = Yes</p>
                                 :
                                 <p><strong>Overnight Storage</strong> = No</p>
-                        }
+                        } */}
                         <p><strong>Drop off Date</strong> = {moment(DropoffDate).format('Do MMMM YYYY')}</p>
                         <hr />
                         <h3>Payment Method</h3>
@@ -142,5 +142,4 @@ function mapStateToProps(state) {
         payment
     }
 }
-
 export default connect(mapStateToProps, null)(ATHFinalReview);
