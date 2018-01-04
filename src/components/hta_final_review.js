@@ -26,7 +26,7 @@ class HTAFinalReview extends Component {
     render() {
         console.log('final review', this.props.BookData[0])
         console.log('final review', this.props.payment)
-        const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv, 
+        const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv,
             PhoneNumber, PickupDatetime } = this.props.BookData[0];
         const { PaymentMethod } = this.props.payment;
         return (
