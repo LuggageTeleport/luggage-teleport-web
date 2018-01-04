@@ -29,7 +29,7 @@ class AirportToHotel extends Component {
             FlightNumber: '',
             ArrivalTime: '',
             PickupDate: '',
-            DropoffDate: '',
+            DropoffDate: null,
             HotelBookingRef: '',
             NameUnderHotelRsv: '',
             OvernightStorage: false,
@@ -85,6 +85,32 @@ class AirportToHotel extends Component {
         );
     }
 
+    ValidationForm(){
+        const {
+            Airport,
+            Airline,
+            Hotel,
+            FlightNumber,
+            ArrivalTime,
+            PickupDate,
+            DropoffDate,
+            HotelBookingRef,
+            NameUnderHotelRsv,
+        } =  this.state;
+
+        return (
+            Airport.length > 0 && Airline.length > 0 && Hotel.length > 0
+            && FlightNumber.length > 0 && ArrivalTime.length > 0 && PickupDate.length > 0
+            && HotelBookingRef.length > 0 && NameUnderHotelRsv.length > 0
+        )
+    }
+
+    // DropoffValidation(){
+    //     return(
+    //         this.state.OvernightStorage
+    //     )
+    // }
+
     buttonSubmit() {
         return (
             <Link to="/athreview" style={{color: 'black'}}>
@@ -92,6 +118,7 @@ class AirportToHotel extends Component {
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToAirportData()}
                     type="button"
+                    disabled={!this.ValidationForm()}
                     style={{ backgroundColor: 'yellow', width: '260px' }}>
                     Next
             </button>
@@ -384,6 +411,8 @@ class AirportToHotel extends Component {
         this.props.PassBookData(datas);
     }
 
+
+
     componentDidMount() {
         console.log('this.props', this.props.user);
         const { Email, PhoneNumber } = this.props.user;
@@ -543,6 +572,7 @@ class AirportToHotel extends Component {
                                             onFocus={() => this.setState({ dateType: 'date' })}
                                             onBlur={() => this.setState({ dateType: 'text' })}
                                             style={{ width: '220px' }}
+                                            disabled={!this.state.OvernightStorage}
                                         />
                                     </InputGroup>
                                 </FormGroup>
