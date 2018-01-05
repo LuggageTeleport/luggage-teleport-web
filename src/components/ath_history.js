@@ -32,7 +32,7 @@ class ATHHistory extends Component {
         }
 
         const { Email } = this.props.user
-        axios.get(`https://adf5ue28ya.execute-api.us-east-1.amazonaws.com/dev/handler/booking-get/${Email}`)
+        axios.get(`https://el3ceo7dwe.execute-api.us-west-1.amazonaws.com/dev/handler/AirportToHotel-get/${Email}`)
             .then((res) => {
                 this.setState({ data: res.data.result, isLoading: true })
             }).catch((err) => {
@@ -54,10 +54,10 @@ class ATHHistory extends Component {
                                     <div key={k} style={{ margin: 3 }}>
                                         <div className="card">
                                             <div className="containerCard">
-                                                <h4><strong>{res.type}</strong></h4>
-                                                <p>Booked by <strong>{res.email}</strong></p>
+                                                <p>From <strong>{res.airport}</strong></p>
+                                                <p>to <strong>{res.hotel}</strong></p>
                                                 <p>Booked at <strong>{moment(res.createdAt).format('DD MMM YYYY, hh:mm a')}</strong></p>
-                                                <p>Status: <span style={{ color: 'red' }}>{res.status}</span></p>
+                                                <p>Total Cost: <span style={{ color: 'blue' }}>${res.TotalCost}</span></p>
                                             </div>
                                         </div>
                                     </div>
