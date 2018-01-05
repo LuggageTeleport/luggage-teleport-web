@@ -4,7 +4,8 @@ import { PassBookData } from '../actions';
 import '../App.css';
 import * as moment from 'moment';
 import axios from 'axios';
-
+import SquarePaymentForm from './square_payment_form';
+import { SQUARE_APP_ID } from '../config';
 
 class ATHFinalReview extends Component {
     constructor(props) {
@@ -22,57 +23,62 @@ class ATHFinalReview extends Component {
         const { dispatch } = this.props;
         dispatch(PassBookData(this.props.BookData));
     }
+    handleNonceError(errors) {
+        console.log('handleNonceError', errors);
+        alert(errors[0].message)
+    }
     backToPayment = async => {
         this.PushData()
         this.props.history.push('/payment');
     }
     Submit = async => {
-        const { Airline, Airport, ArrivalTime, DropoffDate, Email, FlightNumber, Hotel, HotelBookingRef,
-            NameUnderHotelRsv, OvernightStorage, PhoneNumber, PickupDate } = this.props.BookData[0]
-        console.log('final submit', this.props.BookData[0])
-        const { PaymentMethod } = this.props.payment;
-        const { Luggage, TotalCost } = this.state
-
-        let data = JSON.stringify({
-            flightNumber: FlightNumber,
-            status: 'Awaiting Payment',
-            hotelReservationName: NameUnderHotelRsv,
-            airport: Airport,
-            hotel: Hotel,
-            pickupDate: PickupDate,
-            airline: Airline,
-            estimatedArrival: ArrivalTime,
-            dropoffDate: DropoffDate,
-            hotelReference: HotelBookingRef,
-            email: Email,
-            phone: PhoneNumber,
-            PaymentWith: PaymentMethod,
-            LuggageQuantity: Luggage,
-            TotalCost: TotalCost
-        })
-
-        let token = localStorage.getItem('token')
-        // console.log('token', token)
-        let config = {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        }
-        this.setState({ isLoading: true })
-
-        axios.post('https://el3ceo7dwe.execute-api.us-west-1.amazonaws.com/dev/handler/AirportToHotel-create', data, config)
-            .then((response) => {
-                // console.log(response);
-                alert('success booked!')
-                this.props.history.push('/');
-            }, (err) => {
-                // console.log(err);
-                this.setState({ isLoading: false })
-            })
+        this.paymentForm.generateNonce();
     }
 
+    handleNonce = async (nonce, cardData) => {
+        const { Airline, Airport, ArrivalTime, DropoffDate, Email, FlightNumber, Hotel, HotelBookingRef,
+          NameUnderHotelRsv, OvernightStorage, PhoneNumber, PickupDate } = this.props.BookData[0]
+        const { PaymentMethod } = this.props.payment;
+        const { Luggage, TotalCost } = this.state
+        let data = JSON.stringify({
+         flightNumber: FlightNumber,
+         status: 'Awaiting Payment',
+         hotelReservationName: NameUnderHotelRsv,
+         airport: Airport,
+         hotel: Hotel,
+         pickupDate: PickupDate,
+         airline: Airline,
+         estimatedArrival: ArrivalTime,
+         dropoffDate: DropoffDate,
+         hotelReference: HotelBookingRef,
+         email: Email,
+         phone: PhoneNumber,
+         PaymentWith: PaymentMethod,
+         LuggageQuantity: Luggage,
+         TotalCost: TotalCost,
+         cardNonce: nonce,
+         })
 
+         let token = localStorage.getItem('token')
+         // console.log('token', token)
+         let config = {
+         headers: {
+         'Authorization': `Bearer ${token}`,
+         'Content-Type': 'application/json'
+         }
+         }
+         this.setState({ isLoading: true })
+
+         axios.post('https://el3ceo7dwe.execute-api.us-west-1.amazonaws.com/dev/handler/AirportToHotel-create', data, config)
+         .then((response) => {
+         // console.log(response);
+         alert('success booked!')
+         this.props.history.push('/');
+         }, (err) => {
+         // console.log(err);
+         this.setState({ isLoading: false })
+         })
+    }
     handleLuggage = async => {
         const { Luggage, TotalCost } = this.state
         // this.setState({Luggage})
@@ -133,6 +139,7 @@ class ATHFinalReview extends Component {
 
                         <h3>Payment Details</h3>
                         <p>with {PaymentMethod}</p>
+                        <SquarePaymentForm appId={SQUARE_APP_ID} onNonceGenerated={this.handleNonce} onNonceError={this.handleNonceError} onRef={ref => (this.paymentForm = ref)} />
                         <p><strong>Total = ${this.state.TotalCost}</strong></p>
 
                         <p><strong>Notes! </strong>
