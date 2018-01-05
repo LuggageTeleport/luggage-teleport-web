@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import { PassBookData } from '../actions';
 import '../App.css';
 import * as moment from 'moment';
+import axios from 'axios';
 
 class HTAFinalReview extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            isLoading: false,
+            TotalCost: 0,
+            Luggage: 0
+        }
     }
 
     PushData() {
@@ -19,8 +26,60 @@ class HTAFinalReview extends Component {
         this.props.history.push('/payment');
     }
     Submit = async => {
-        alert('Under Development :)');
-        console.log('final submit', this.props.BookData[0])
+        const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv,
+            PhoneNumber, PickupDatetime } = this.props.BookData[0];
+        // const { PaymentMethod } = this.props.payment;
+        const { Luggage, TotalCost } = this.state
+
+        let data = JSON.stringify({
+            airport: Airport,
+            airline: Airline,
+            flightNumber: FlightNumber,
+            pickupDate: PickupDatetime,
+            departureTime: DepartureTime,
+            hotel: Hotel,
+            hotelReference: HotelBookingRef,
+            hotelReservationName: NameUnderHotelRsv,
+            status: "Awaiting Payment",
+            email: Email,
+            phone: PhoneNumber,
+            LuggageQuantity: Luggage,
+            TotalCost: TotalCost
+        })
+
+
+
+        let token = localStorage.getItem('token')
+        // console.log('token', token)
+        let config = {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        }
+        this.setState({ isLoading: true })
+
+        axios.post('https://el3ceo7dwe.execute-api.us-west-1.amazonaws.com/dev/handler/HotelToAirport-create', data, config)
+            .then((response) => {
+                // console.log(response);
+                alert('success booked!')
+                this.props.history.push('/');
+            }, (err) => {
+                // console.log(err);
+                this.setState({ isLoading: false })
+            })
+    }
+
+    handleLuggage = async => {
+        const { Luggage, TotalCost } = this.state
+        // this.setState({Luggage})
+        if (Luggage > 0 && Luggage <= 2) {
+            this.setState({ TotalCost: 35 })
+        } else if (Luggage > 2) {
+            const TotalWithAdditional = 35 + ((Luggage - 2) * 10);
+            this.setState({ TotalCost: TotalWithAdditional })
+        }
+
     }
 
     render() {
@@ -29,6 +88,8 @@ class HTAFinalReview extends Component {
         const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv,
             PhoneNumber, PickupDatetime } = this.props.BookData[0];
         const { PaymentMethod } = this.props.payment;
+
+        const { Total } = this.state;
         return (
             <div>
                 <div className="containerProgressBar" style={{ marginTop: '1em' }}>
@@ -56,13 +117,42 @@ class HTAFinalReview extends Component {
                         <p><strong>Flight Number</strong> = {FlightNumber}</p>
                         <p><strong>Departure Time</strong> = {moment(DepartureTime, ["HH:mm"]).format("hh:mm a")}</p>
                         <hr />
-                        <h3>Payment Method</h3>
-                        with {PaymentMethod}
+
+                        <h3>Your Luggage(s)</h3>
+                        <input onChange={e => this.setState({ Luggage: e.target.value })} placeholder="you luggage quantity" />
+                        <button onClick={this.handleLuggage} style={{ backgroundColor: '#00bfff' }} disabled={!this.state.Luggage}>Add</button>
+                        <hr />
+
+                        <h3>Payment Details</h3>
+                        <p>with {PaymentMethod}</p>
+                        <p><strong>Total = ${this.state.TotalCost}</strong></p>
+
+                        <p><strong>Notes! </strong>
+                            <i className="registerNotes">
+                                $35 fixed price up to 2 Luggages and $10 per additional</i>
+                        </p>
                     </div>
 
                     <div align="center">
-                        <button type="button" class="btn btn-danger btn-lg" style={{ marginRight: '3px' }} onClick={this.backToPayment}>Back</button>
-                        <button type="button" class="btn btn-primary btn-lg" onClick={this.Submit}>Submit Data</button>
+                        <button type="button" class="btn btn-danger btn-lg" style={{ width: '160px' }} onClick={this.backToPayment}>Back</button>
+                        {
+                            !this.state.isLoading ?
+                                <button type="button" class="btn btn-primary btn-lg"
+                                    onClick={this.Submit}
+                                    style={{ width: '160px', marginLeft: '1em' }}
+                                    disabled={!this.state.TotalCost}
+                                >Submit Data
+                                 </button>
+                                :
+                                <button
+                                    className="btn btn-lg btn-primary"
+                                    type="button"
+                                    style={{ width: '160px', marginLeft: '1em' }}
+                                    disabled={true}
+                                >
+                                    <i className="fa fa-spinner fa-spin"></i> Submitting...
+                                </button>
+                        }
                     </div>
                 </div>
             </div>

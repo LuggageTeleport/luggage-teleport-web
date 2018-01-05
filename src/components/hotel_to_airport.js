@@ -82,6 +82,27 @@ class HotelToAirport extends Component {
         );
     }
 
+    ValidationForm(){
+        const {
+            Email,
+            PhoneNumber,
+            Hotel,
+            Airport,
+            Airline,
+            HotelBookingRef,
+            NameUnderHotelRsv,
+            PickupDatetime,
+            FlightNumber,
+            DepartureTime,
+        } =  this.state
+
+        return(
+            Email.length > 0 && PhoneNumber.length > 0 && Hotel.length > 0 && Airport.length > 0 &&
+            Airline.length > 0 && HotelBookingRef.length > 0 && NameUnderHotelRsv.length > 0 &&
+            PickupDatetime.length > 0 && FlightNumber.length > 0, DepartureTime.length > 0
+        )
+    }
+
     buttonSubmit() {
         return (
             <Link to="/htareview" style={{color: 'black'}}>
@@ -89,7 +110,9 @@ class HotelToAirport extends Component {
                     className="btn btn-lg"
                     onClick={() => this.SubmitHotelToAirportData()}
                     type="button"
-                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    style={{ backgroundColor: 'yellow', width: '260px' }}
+                    disabled={!this.ValidationForm()}
+                    >
                     Next
                 </button>
             </Link>

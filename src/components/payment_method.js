@@ -62,7 +62,7 @@ class PaymentMethod extends Component {
         const Payment = [
             {
                 id: 1,
-                name: "Cash"
+                name: "Credit Card"
             }
         ]
 

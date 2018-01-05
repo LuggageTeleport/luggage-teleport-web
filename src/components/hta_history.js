@@ -32,9 +32,9 @@ class HTAHistory extends Component {
         }
 
         const { Email } = this.props.user
-        axios.get(`https://adf5ue28ya.execute-api.us-east-1.amazonaws.com/dev/handler/booking-scan/`)
+        axios.get(`https://el3ceo7dwe.execute-api.us-west-1.amazonaws.com/dev/handler/HotelToAirport-get/${Email}`)
             .then((res) => {
-                this.setState({ data: res.data.Myresult, isLoading: true })
+                this.setState({ data: res.data.result, isLoading: true })
             }).catch((err) => {
                 console.log(err);
             })
@@ -46,7 +46,7 @@ class HTAHistory extends Component {
         const { data, isLoading } = this.state;
         return (
             <div align="center">
-                {/* <div>
+                <div>
                     {
                         isLoading ?
                             data.map((res, k) => {
@@ -54,10 +54,10 @@ class HTAHistory extends Component {
                                     <div key={k} style={{ margin: 3 }}>
                                         <div className="card">
                                             <div className="containerCard">
-                                                <h4><strong>{res.type}</strong></h4>
-                                                <p>Booked by <strong>{res.email}</strong></p>
+                                                <p>From <strong>{res.hotel}</strong></p>
+                                                <p>to <strong>{res.airport}</strong></p>
                                                 <p>Booked at <strong>{moment(res.createdAt).format('DD MMM YYYY, hh:mm a')}</strong></p>
-                                                <p>Status: <span style={{color: 'red'}}>{res.status}</span></p>
+                                                <p>Total Cost: <span style={{color: 'blue'}}>${res.TotalCost}</span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -72,8 +72,7 @@ class HTAHistory extends Component {
                                 <div class="sk-cube3 sk-cube"></div>
                             </div>
                     }
-                </div> */}
-                <h1>Under Development :)</h1>
+                </div>
             </div>
         )
     }
