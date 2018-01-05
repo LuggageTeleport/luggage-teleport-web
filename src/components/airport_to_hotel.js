@@ -388,11 +388,279 @@ class AirportToHotel extends Component {
         const HotelData = [
             {
                 id: 1,
-                name: "Shantika Hotel Jakarta"
+                name: "Alexis Park"
             },
             {
                 id: 2,
-                name: "san Francisco Ritz-Carlton Hotel"
+                name: "Arizona Charlie’s"
+            },
+            {
+                id: 3,
+                name: "Arizona Charlie’s Border"
+            },
+            {
+                id: 4,
+                name: "Alon"
+            },
+            {
+                id: 5,
+                name: "Bally’s"
+            },
+            {
+                id: 6,
+                name: "Bellagio"
+            },
+            {
+                id: 7,
+                name: "Best Western Plus Casino Royale"
+            },
+            {
+                id: 8,
+                name: "Boulder Station"
+            },
+            {
+                id: 9,
+                name: "California Hotel"
+            },
+            {
+                id: 10,
+                name: "Casino Royale"
+            },
+            {
+                id: 11,
+                name: "The Cannery"
+            },
+            {
+                id: 12,
+                name: "Ceasar’s Palace"
+            },
+            {
+                id: 13,
+                name: "Circus Circus"
+            },
+            {
+                id: 14,
+                name: "CityCenter"
+            },
+            {
+                id: 15,
+                name: "Clarion"
+            },
+            {
+                id: 16,
+                name: "Cosmopolitan"
+            },
+            {
+                id: 17,
+                name: "The Cromwell"
+            },
+            {
+                id: 18,
+                name: "Delano"
+            },
+            {
+                id: 19,
+                name: "Encore"
+            },
+            {
+                id: 20,
+                name: "Excalibur"
+            },
+            {
+                id: 21,
+                name: "Fiesta Henderson"
+            },
+            {
+                id: 22,
+                name: "Flamingo"
+            },
+            {
+                id: 23,
+                name: "Fontainebleau"
+            },
+            {
+                id: 24,
+                name: "Four Seasons Las Vegas"
+            },
+            {
+                id: 25,
+                name: "Golden Nugget Las Vegas Hotel & Casino"
+            },
+            {
+                id: 26,
+                name: "Green Valley Ranch"
+            },
+            {
+                id: 27,
+                name: "Hard Rock Hotel & Casino Las Vegas"
+            },
+            {
+                id: 28,
+                name: "Harrah’s"
+            },
+            {
+                id: 29,
+                name: "Hyatt Regency Las Vegas"
+            },
+            {
+                id: 30,
+                name: "Hyatt Regency Resort Las Vegas"
+            },
+            {
+                id: 31,
+                name: "Imperial Palace"
+            },
+            {
+                id: 32,
+                name: "Las Vegas Club"
+            },
+            {
+                id: 33,
+                name: "The Line"
+            },
+            {
+                id: 34,
+                name: "Luxor"
+            },
+            {
+                id: 35,
+                name: "JW Marriot Las Vegas"
+            },
+            {
+                id: 36,
+                name: "Main Street Station Casino & Hotel"
+            },
+            {
+                id: 37,
+                name: "Mandalay Bay"
+            },
+            {
+                id: 38,
+                name: "MGM Grand"
+            },
+            {
+                id: 39,
+                name: "The Mirage"
+            },
+            {
+                id: 40,
+                name: "Monte Carlo"
+            },
+            {
+                id: 41,
+                name: "New York-New York"
+            },
+            {
+                id: 42,
+                name: "Orleans"
+            },
+            {
+                id: 43,
+                name: "Palace Station"
+            },
+            {
+                id: 44,
+                name: "The Palazzo"
+            },
+            {
+                id: 45,
+                name: "Paris"
+            },
+            {
+                id: 46,
+                name: "Planet Hollywood"
+            },
+            {
+                id: 47,
+                name: "Plaza Hotel & Casino"
+            },
+            {
+                id: 48,
+                name: "Polo Towers"
+            },
+            {
+                id: 49,
+                name: "Quality Inn Las Vegas"
+            },
+            {
+                id: 50,
+                name: "Residence Inn Las Vegas"
+            },
+            {
+                id: 51,
+                name: "The Resort at Summerlin"
+            },
+            {
+                id: 52,
+                name: "Resorts World"
+            },
+            {
+                id: 53,
+                name: "Rio Suite Hotel"
+            },
+            {
+                id: 54,
+                name: "Riviera"
+            },
+            {
+                id: 55,
+                name: "Sam’s Town"
+            },
+            {
+                id: 56,
+                name: "SLS"
+            },
+            {
+                id: 57,
+                name: "Stratosphere"
+            },
+            {
+                id: 58,
+                name: "St. Tropez"
+            },
+            {
+                id: 59,
+                name: "Suncoast Casino Hotel"
+            },
+            {
+                id: 60,
+                name: "Sunset Station"
+            },
+            {
+                id: 61,
+                name: "Treasure Island"
+            },
+            {
+                id: 62,
+                name: "Tropicana"
+            },
+            {
+                id: 63,
+                name: "Tuscany Hotel & Casino"
+            },
+            {
+                id: 64,
+                name: "The Venetian"
+            },
+            {
+                id: 65,
+                name: "Western Hotel"
+            },
+            {
+                id: 66,
+                name: "Westgate Las Vegas Resort & Casino"
+            },
+            {
+                id: 67,
+                name: "The Westin Casuarina"
+            },
+            {
+                id: 68,
+                name: "Wild Wild West Hotel"
+            },
+            {
+                id: 69,
+                name: "Wynn Las Vegas"
             }
         ]
 
