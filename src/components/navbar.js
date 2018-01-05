@@ -19,17 +19,16 @@ class Navbar extends React.Component {
   componentWillMount() {
     const currentUser = getCurrentUser();
     const UserToken = getUserToken(currentUser);
-    console.log('currentUser',currentUser)
+    console.log('currentUser', currentUser)
     if (currentUser) {
+
       const { dispatch } = this.props;
       const { jwtToken } = currentUser.signInUserSession.idToken;
       const { email, phone_number } = currentUser.signInUserSession.idToken.payload;
       dispatch(LogUser(email, phone_number))
       localStorage.setItem('token', `"${jwtToken}"`)
-      UserToken
-
     } else {
-      // this.props.push.history('/')
+      // this.props.history.push('/')
       console.log(false)
     }
   }
