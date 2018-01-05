@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import { getCurrentUser } from '../aws_cognito';
+import { FormGroup, InputGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { PassBookData } from '../actions'
 
 import FaPlane from 'react-icons/lib/fa/plane';
 import FaClockO from 'react-icons/lib/fa/clock-o';
@@ -31,7 +33,8 @@ class AirportToHotel extends Component {
             HotelBookingRef: '',
             NameUnderHotelRsv: '',
             OvernightStorage: false,
-            showModal: false
+            showModal: false,
+            BookingType: 'ATH'
         }
 
         this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -82,15 +85,38 @@ class AirportToHotel extends Component {
         );
     }
 
+    ValidationForm(){
+        const {
+            Airport,
+            Airline,
+            Hotel,
+            FlightNumber,
+            ArrivalTime,
+            PickupDate,
+            DropoffDate,
+            HotelBookingRef,
+            NameUnderHotelRsv,
+        } =  this.state;
+
+        return (
+            Airport.length > 0 && Airline.length > 0 && Hotel.length > 0
+            && FlightNumber.length > 0 && ArrivalTime.length > 0 && PickupDate.length > 0
+            && HotelBookingRef.length > 0 && NameUnderHotelRsv.length > 0 && DropoffDate.length > 0
+        )
+    }
+
     buttonSubmit() {
         return (
-            <button
-                className="btn btn-lg"
-                onClick={() => this.SubmitHotelToAirportData()}
-                type="button"
-                style={{ backgroundColor: 'yellow', width: '260px' }}>
-                Next
-        </button>
+            <Link to="/athreview" style={{color: 'black'}}>
+                <button
+                    className="btn btn-lg"
+                    onClick={() => this.SubmitHotelToAirportData()}
+                    type="button"
+                    disabled={!this.ValidationForm()}
+                    style={{ backgroundColor: 'yellow', width: '260px' }}>
+                    Next
+            </button>
+            </Link>
         )
     }
 
@@ -102,7 +128,11 @@ class AirportToHotel extends Component {
             },
             {
                 id: 2,
-                name: "Soekarno-Hatta Intl Airport"
+                name: "Oakland Intl Airport"
+            },
+            {
+                id: 3,
+                name: "McCarran Intl Airport"
             }
         ]
         return AirportData;
@@ -112,11 +142,243 @@ class AirportToHotel extends Component {
         const AirlineData = [
             {
                 id: 1,
-                name: "Garuda"
+                name: "Aer Lingus"
             },
             {
                 id: 2,
+                name: "Aeromexico"
+            },
+            {
+                id: 3,
+                name: "Alaska Airlines"
+            },
+            {
+                id: 4,
+                name: "Allegiant Air"
+            },
+            {
+                id: 5,
+                name: "Air Berlin"
+            },
+            {
+                id: 6,
+                name: "Air Canada"
+            },
+            {
+                id: 7,
+                name: "Air France"
+            },
+            {
+                id: 8,
+                name: "Air Mexico"
+            },
+            {
+                id: 9,
                 name: "American Airlines"
+            },
+            {
+                id: 10,
+                name: "ANAs"
+            },
+            {
+                id: 11,
+                name: "Austrian Airlines"
+            },
+            {
+                id: 12,
+                name: "Bangkok"
+            },
+            {
+                id: 13,
+                name: "British Airlines"
+            },
+            {
+                id: 14,
+                name: "Cathay Pacific"
+            },
+            {
+                id: 15,
+                name: "China Airlines"
+            },
+            {
+                id: 16,
+                name: "China Eastern Airlines"
+            },
+            {
+                id: 17,
+                name: "China Southern Airlines"
+            },
+            {
+                id: 18,
+                name: "Delta Airlines"
+            },
+            {
+                id: 19,
+                name: "easyJet"
+            },
+            {
+                id: 20,
+                name: "Egyptair"
+            },
+            {
+                id: 21,
+                name: "Emirites"
+            },
+            {
+                id: 22,
+                name: "Etihads Airlines"
+            },
+            {
+                id: 23,
+                name: "Eurowings"
+            },
+            {
+                id: 24,
+                name: "FinnAir"
+            },
+            {
+                id: 25,
+                name: "Frontier Airlines"
+            },
+            {
+                id: 26,
+                name: "Garuda Indonesia"
+            },
+            {
+                id: 27,
+                name: "Hawaiian Airlines"
+            },
+            {
+                id: 28,
+                name: "Hong Kong Airlines"
+            },
+            {
+                id: 29,
+                name: "Iberia"
+            },
+            {
+                id: 30,
+                name: "Icelandair"
+            },
+            {
+                id: 31,
+                name: "Indigo"
+            },
+            {
+                id: 32,
+                name: "Japan Airlines"
+            },
+            {
+                id: 33,
+                name: "jetBlue"
+            },
+            {
+                id: 34,
+                name: "Jetstar Asia"
+            },
+            {
+                id: 35,
+                name: "KLM"
+            },
+            {
+                id: 36,
+                name: "LAN Airlines"
+            },
+            {
+                id: 37,
+                name: "Lufthansa"
+            },
+            {
+                id: 38,
+                name: "Malaysia Airlines"
+            },
+            {
+                id: 39,
+                name: "Norwegian Airlines"
+            },
+            {
+                id: 40,
+                name: "Royal Jordanian"
+            },
+            {
+                id: 41,
+                name: "RyanAir"
+            },
+            {
+                id: 42,
+                name: "SAS Scandinavian"
+            },
+            {
+                id: 43,
+                name: "Scoot"
+            },
+            {
+                id: 44,
+                name: "SilkAir"
+            },
+            {
+                id: 45,
+                name: "S7 Airlines"
+            },
+            {
+                id: 46,
+                name: "SkyWest Airlines"
+            },
+            {
+                id: 47,
+                name: "South African Airlines"
+            },
+            {
+                id: 48,
+                name: "Southwest Airlines"
+            },
+            {
+                id: 49,
+                name: "Swiss International Airlines"
+            },
+            {
+                id: 50,
+                name: "Spirit Airlines"
+            },
+            {
+                id: 51,
+                name: "Turkish Airlines"
+            },
+            {
+                id: 52,
+                name: "United Airlines"
+            },
+            {
+                id: 53,
+                name: "Virgin America"
+            },
+            {
+                id: 54,
+                name: "Virgin Atlantic"
+            },
+            {
+                id: 55,
+                name: "Virgin Australia"
+            },
+            {
+                id: 56,
+                name: "Qantas Airlines"
+            },
+            {
+                id: 57,
+                name: "Qatar Airlines"
+            },
+            {
+                id: 58,
+                name: "Vivaaerobus"
+            },
+            {
+                id: 59,
+                name: "Volaris"
+            },
+            {
+                id: 60,
+                name: "WestJet"
             }
         ]
         return AirlineData;
@@ -130,7 +392,7 @@ class AirportToHotel extends Component {
             },
             {
                 id: 2,
-                name: "Ritz-Carlton Hotel"
+                name: "san Francisco Ritz-Carlton Hotel"
             }
         ]
 
@@ -138,28 +400,19 @@ class AirportToHotel extends Component {
     }
 
     SubmitHotelToAirportData() {
-        // const { email } = this.props.user.user;
-        const {
-            Email,
-            airline,
-            airport,
-            hotel,
-            FlightNumber,
-            ArrivalTime,
-            PickupDate,
-            DropoffDate,
-            HotelBookingRef,
-            NameUnderHotelRsv } = this.state;
-        // this.setState({email: this.props.user.email})
-        console.log(this.state)
+        let datas = [];
+        datas.push(this.state);
+        this.props.PassBookData(datas);
     }
+
+
 
     componentDidMount() {
         console.log('this.props', this.props.user);
         const { Email, PhoneNumber } = this.props.user;
         this.setState({
             Email,
-            PhoneNumber 
+            PhoneNumber
         })
     }
 
@@ -172,133 +425,157 @@ class AirportToHotel extends Component {
                 <div class="container">
                     <div className="form-inline">
                         <div className="form-group">
-
-                            {/**
-                         * Airport Section
-                         */}
-                            <select
-                                className="form-control"
-                                style={{ height: '35px', width: '260px' }}
-                                onChange={event => this.setState({ Airport: event.target.value })}>
-                                <option value="" selected disabled>Choose Airport for pickup</option>
-                                {
-                                    this.GetAirportData().map((airport) => {
-                                        return <option key={airport.id} value={airport.id}>{airport.name}</option>
-                                    })
-                                }
-                            </select>
-                            <hr />
-                            <select
-                                className="form-control"
-                                style={{ height: '35px', width: '260px' }}
-                                onChange={event => this.setState({ Airline: event.target.value })}>
-                                <option value="" selected disabled>Airline</option>
-                                {
-                                    this.GetAirlineData().map((airline) => {
-                                        return <option key={airline.id} value={airline.id}>{airline.name}</option>
-                                    })
-                                }
-                            </select>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></span>
-                                <input
-                                    type="text"
-                                    onChange={event => this.setState({ FlightNumber: event.target.value })}
-                                    placeholder="Flight Number"
-                                    className="form-control"
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></span>
-                                <input
-                                    type={this.state.dateType}
-                                    className="form-control"
-                                    placeholder="Pick up Date"
-                                    onChange={event => this.setState({ PickupDate: event.target.value })}
-                                    onFocus={() => this.setState({ dateType: 'date' })}
-                                    onBlur={() => this.setState({ dateType: 'text' })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#00bfff' }} /></span>
-                                <input
-                                    type={this.state.timeType}
-                                    placeholder="Estimated Time of Arrival"
-                                    className="form-control"
-                                    onChange={event => this.setState({ ArrivalTime: event.target.value })}
-                                    onFocus={() => this.setState({ timeType: 'time' })}
-                                    onBlur={() => this.setState({ timeType: 'text' })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            {/**
+                            <form>
+                                {/**
+                                * Airport Section
+                                */}
+                                <FormGroup>
+                                    <InputGroup>
+                                        <select
+                                            className="form-control"
+                                            style={{ height: '35px', width: '260px' }}
+                                            onChange={event => this.setState({ Airport: event.target.value })}>
+                                            <option value="" selected disabled>Choose Airport for pickup</option>
+                                            {
+                                                this.GetAirportData().map((airport) => {
+                                                    return <option key={airport.id} value={airport.name}>{airport.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <select
+                                            className="form-control"
+                                            style={{ height: '35px', width: '260px' }}
+                                            onChange={event => this.setState({ Airline: event.target.value })}>
+                                            <option value="" selected disabled>Airline</option>
+                                            {
+                                                this.GetAirlineData().map((airline) => {
+                                                    return <option key={airline.id} value={airline.name}>{airline.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaPlane style={{ color: '#00bfff' }} /></InputGroup.Addon>
+                                        <input
+                                            type="text"
+                                            onChange={event => this.setState({ FlightNumber: event.target.value })}
+                                            placeholder="Flight Number"
+                                            className="form-control"
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#00bfff' }} /></InputGroup.Addon>
+                                        <input
+                                            type={this.state.dateType}
+                                            className="form-control"
+                                            placeholder="Pick up Date"
+                                            onChange={event => this.setState({ PickupDate: event.target.value })}
+                                            onFocus={() => this.setState({ dateType: 'date' })}
+                                            onBlur={() => this.setState({ dateType: 'text' })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaClockO style={{ color: '#00bfff' }} /></InputGroup.Addon>
+                                        <input
+                                            type={this.state.timeType}
+                                            placeholder="Estimated Time of Arrival"
+                                            className="form-control"
+                                            onChange={event => this.setState({ ArrivalTime: event.target.value })}
+                                            onFocus={() => this.setState({ timeType: 'time' })}
+                                            onBlur={() => this.setState({ timeType: 'text' })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                {/**
                              * Hotel Section
                              */}
-                            <select
-                                className="form-control"
-                                style={{ height: '35px', width: '260px' }}
-                                onChange={event => this.setState({ Hotel: event.target.value })}>
-                                <option value="" selected disabled>Hotel for Drop off</option>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <select
+                                            className="form-control"
+                                            style={{ height: '35px', width: '260px' }}
+                                            onChange={event => this.setState({ Hotel: event.target.value })}>
+                                            <option value="" selected disabled>Hotel for Drop off</option>
+                                            {
+                                                this.GetHotelData().map((hotel) => {
+                                                    return <option key={hotel.id} value={hotel.name}>{hotel.name}</option>
+                                                })
+                                            }
+                                        </select>
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></InputGroup.Addon>
+                                        <input
+                                            type='text'
+                                            onChange={event => this.setState({ HotelBookingRef: event.target.value })}
+                                            placeholder="Hotel Booking Reference"
+                                            className="form-control"
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></InputGroup.Addon>
+                                        <input
+                                            type='text'
+                                            placeholder="Name under Hotel Reservation"
+                                            className="form-control"
+                                            onChange={event => this.setState({ NameUnderHotelRsv: event.target.value })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
+                                {/* <div>
+                                    Overnight Storage
+                                    <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
+                                    <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: false })} />No
+                                </div>
+                                <hr /> */}
+                                <FormGroup>
+                                    <InputGroup>
+                                        <InputGroup.Addon style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></InputGroup.Addon>
+                                        <input
+                                            type={this.state.dateType}
+                                            className="form-control"
+                                            placeholder="Drop off Date"
+                                            onChange={event => this.setState({ DropoffDate: event.target.value })}
+                                            onFocus={() => this.setState({ dateType: 'date' })}
+                                            onBlur={() => this.setState({ dateType: 'text' })}
+                                            style={{ width: '220px' }}
+                                        />
+                                    </InputGroup>
+                                </FormGroup>
+                                <hr />
                                 {
-                                    this.GetHotelData().map((hotel) => {
-                                        return <option key={hotel.id} value={hotel.id}>{hotel.name}</option>
-                                    })
+                                    !currentUser ?
+                                        this.PopupModal()
+                                        : this.buttonSubmit()
                                 }
-                            </select>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><MdHotel style={{ color: '#e6e600' }} /></span>
-                                <input
-                                    type='text'
-                                    onChange={event => this.setState({ HotelBookingRef: event.target.value })}
-                                    placeholder="Hotel Booking Reference"
-                                    className="form-control"
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaUser style={{ color: '#e6e600' }} /></span>
-                                <input
-                                    type='text'
-                                    placeholder="Name under Hotel Reservation"
-                                    className="form-control"
-                                    onChange={event => this.setState({ NameUnderHotelRsv: event.target.value })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            <div>
-                                <label style={{ float: 'left', marginRight: 5 }}>Overnight Storage</label>
-                                <input type="radio" name="optradio" onChange={e => this.setState({ OvernightStorage: true })} />Yes
-                                <input type="radio" name="optradio" style={{ marginLeft: 5 }} onChange={e => this.setState({ OvernightStorage: false })} />No
-                            </div>
-                            <hr />
-                            <div class="input-group">
-                                <span class="input-group-addon" style={{ backgroundColor: 'white' }}><FaCalendar style={{ color: '#e6e600' }} /></span>
-                                <input
-                                    type={this.state.dateType}
-                                    className="form-control"
-                                    placeholder="Drop off Date"
-                                    onChange={event => this.setState({ DropoffDate: event.target.value })}
-                                    onFocus={() => this.setState({ dateType: 'date' })}
-                                    onBlur={() => this.setState({ dateType: 'text' })}
-                                    style={{ width: '220px' }}
-                                />
-                            </div>
-                            <hr />
-                            {
-                                !currentUser ?
-                                    this.PopupModal()
-                                    : this.buttonSubmit()
-                            }
-
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -314,4 +591,4 @@ function mapsStateToProps(state) {
     }
 }
 
-export default connect(mapsStateToProps, null)(AirportToHotel);
+export default connect(mapsStateToProps, { PassBookData })(AirportToHotel);
