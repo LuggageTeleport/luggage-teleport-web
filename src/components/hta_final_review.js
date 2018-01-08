@@ -4,6 +4,8 @@ import { PassBookData } from '../actions';
 import '../App.css';
 import * as moment from 'moment';
 import axios from 'axios';
+import SquarePaymentForm from './square_payment_form';
+import { SQUARE_APP_ID } from '../config';
 
 class HTAFinalReview extends Component {
 
@@ -26,9 +28,14 @@ class HTAFinalReview extends Component {
         this.props.history.push('/payment');
     }
     Submit = async => {
+        this.paymentForm.generateNonce();
+    }
+
+    handleNonce = async (nonce, cardData) => {
+
         const { Airline, Airport, DepartureTime, Email, FlightNumber, Hotel, HotelBookingRef, NameUnderHotelRsv,
-            PhoneNumber, PickupDatetime } = this.props.BookData[0];
-        // const { PaymentMethod } = this.props.payment;
+          PhoneNumber, PickupDatetime } = this.props.BookData[0];
+         const { PaymentMethod } = this.props.payment;
         const { Luggage, TotalCost } = this.state
 
         let data = JSON.stringify({
@@ -40,14 +47,14 @@ class HTAFinalReview extends Component {
             hotel: Hotel,
             hotelReference: HotelBookingRef,
             hotelReservationName: NameUnderHotelRsv,
-            status: "Awaiting Payment",
+            status: "Payment Complete",
             email: Email,
             phone: PhoneNumber,
+            PaymentWith: PaymentMethod,
             LuggageQuantity: Luggage,
-            TotalCost: TotalCost
+            TotalCost: TotalCost,
+            cardNonce: nonce,
         })
-
-
 
         let token = localStorage.getItem('token')
         // console.log('token', token)
@@ -60,14 +67,20 @@ class HTAFinalReview extends Component {
         this.setState({ isLoading: true })
 
         axios.post('https://el3ceo7dwe.execute-api.us-west-1.amazonaws.com/dev/handler/HotelToAirport-create', data, config)
-            .then((response) => {
-                // console.log(response);
-                alert('success booked!')
-                this.props.history.push('/');
-            }, (err) => {
-                // console.log(err);
-                this.setState({ isLoading: false })
-            })
+          .then((response) => {
+              // console.log(response);
+              alert('success booked!')
+              this.props.history.push('/');
+          }, (err) => {
+              // console.log(err);
+              this.setState({ isLoading: false })
+          })
+
+
+    }
+    handleNonceError(errors) {
+        console.log('handleNonceError', errors);
+        alert(errors[0].message)
     }
 
     handleLuggage = async => {
@@ -125,6 +138,7 @@ class HTAFinalReview extends Component {
 
                         <h3>Payment Details</h3>
                         <p>with {PaymentMethod}</p>
+                        <SquarePaymentForm appId={SQUARE_APP_ID} onNonceGenerated={this.handleNonce} onNonceError={this.handleNonceError} onRef={ref => (this.paymentForm = ref)} />
                         <p><strong>Total = ${this.state.TotalCost}</strong></p>
 
                         <p><strong>Notes! </strong>

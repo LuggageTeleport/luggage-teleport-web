@@ -23,10 +23,6 @@ class ATHFinalReview extends Component {
         const { dispatch } = this.props;
         dispatch(PassBookData(this.props.BookData));
     }
-    handleNonceError(errors) {
-        console.log('handleNonceError', errors);
-        alert(errors[0].message)
-    }
     backToPayment = async => {
         this.PushData()
         this.props.history.push('/payment');
@@ -42,7 +38,7 @@ class ATHFinalReview extends Component {
         const { Luggage, TotalCost } = this.state
         let data = JSON.stringify({
          flightNumber: FlightNumber,
-         status: 'Awaiting Payment',
+         status: 'Payment Complete',
          hotelReservationName: NameUnderHotelRsv,
          airport: Airport,
          hotel: Hotel,
@@ -79,7 +75,12 @@ class ATHFinalReview extends Component {
          this.setState({ isLoading: false })
          })
     }
-    handleLuggage = async => {
+  handleNonceError(errors) {
+    console.log('handleNonceError', errors);
+    alert(errors[0].message)
+  }
+
+  handleLuggage = async => {
         const { Luggage, TotalCost } = this.state
         // this.setState({Luggage})
         if (Luggage > 0 && Luggage <= 2) {
